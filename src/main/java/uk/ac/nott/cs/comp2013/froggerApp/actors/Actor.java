@@ -3,9 +3,7 @@ package uk.ac.nott.cs.comp2013.froggerApp.actors;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
-
 import java.util.ArrayList;
-
 
 public abstract class Actor extends ImageView{
 
