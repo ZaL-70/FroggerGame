@@ -190,7 +190,7 @@ public class Animal extends Actor {
 				setY(679.8+movement);
 				waterDeath = false;
 				carD = 0;
-				setImage(new Image("file:src/main/resources/imgs/player/death/froggerUp.png", imgSize, imgSize, true, true));
+				setImage(new Image("file:src/main/resources/imgs/player/action/froggerUp.png", imgSize, imgSize, true, true));
 				noMove = false;
 				if (points>50) {
 					points-=50;
