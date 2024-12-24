@@ -7,32 +7,31 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.*;
-import uk.ac.nott.cs.comp2013.froggerApp.view.world.BackgroundImage;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
-import uk.ac.nott.cs.comp2013.froggerApp.view.world.setupLevel;
+import uk.ac.nott.cs.comp2013.froggerApp.view.world.LevelSetup;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.digit;
 
 public class FroggerApp extends Application {
 	AnimationTimer timer;
 	MyStage background;
 	Animal animal;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	    background = new MyStage();
-	    Scene scene  = new Scene(background,600,800);
-		setupLevel.createLevel1(background);
+		LevelSetup setupLevel = new LevelSetup();
 		animal = new Animal("file:src/main/resources/imgs/player/action/froggerUp.png");
-		background.add(animal);
-		background.add(new digit(0, 30, 360, 25));
-		background.start();
+		background = setupLevel.createLevel1(animal);
+
+		Scene scene  = new Scene(background,600,800);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		start();  
+		startGame();
 	}
+
 	public void createTimer() {
         timer = new AnimationTimer() {
             @Override
@@ -54,7 +53,7 @@ public class FroggerApp extends Application {
             }
         };
     }
-	public void start() {
+	public void startGame() {
 		background.playMusic();
     	createTimer();
         timer.start();

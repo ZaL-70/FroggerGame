@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class actorTests {
+public class ActorTests {
 
     public class TestActor extends Actor {
         @Override
