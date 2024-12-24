@@ -23,7 +23,7 @@ public class LevelSetup {
         createEndPoints(world);
         createAnimal(world,animal);
 
-        world.add(new digit(0, 30, 360, 25));
+        world.add(new Digit(0, 30, 360, 25));
         world.start();
 
         return world;
