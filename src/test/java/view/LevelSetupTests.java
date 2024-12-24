@@ -32,7 +32,7 @@ public class LevelSetupTests extends ApplicationTest {
 
     @Test
     public void testCreateEndPoints() {
-        LevelSetup.createObstacles(mockWorld);
+        LevelSetup.createEndPoints(mockWorld);
         // Verify the number of obstacles
         long endPointCount = mockWorld.getChildren().stream().filter(node -> node instanceof End).count();
         assertEquals(5, endPointCount);
@@ -40,7 +40,7 @@ public class LevelSetupTests extends ApplicationTest {
 
     @Test
     public void testCreateLogs() {
-        LevelSetup.createObstacles(mockWorld);
+        LevelSetup.createLogs(mockWorld);
         // Verify the number of obstacles
         long logCount = mockWorld.getChildren().stream().filter(node -> node instanceof Log).count();
         assertEquals(8, logCount);
@@ -48,18 +48,18 @@ public class LevelSetupTests extends ApplicationTest {
 
     @Test
     public void testCreateWetTurtles() {
-        LevelSetup.createObstacles(mockWorld);
+        LevelSetup.createWetTurtles(mockWorld);
         // Verify the number of obstacles
         long wetTurtleCount = mockWorld.getChildren().stream().filter(node -> node instanceof WetTurtle).count();
-        assertEquals(2, wetTurtleCount);
+        assertEquals(4, wetTurtleCount);
     }
 
     @Test
     public void testCreateTurtles() {
-        LevelSetup.createObstacles(mockWorld);
+        LevelSetup.createTurtles(mockWorld);
         // Verify the number of obstacles
         long turtleCount = mockWorld.getChildren().stream().filter(node -> node instanceof Turtle).count();
-        assertEquals(4, turtleCount);
+        assertEquals(2, turtleCount);
     }
 
     @Test
