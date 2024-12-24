@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.comp2013.froggerApp.sprites;
+package uk.ac.nott.cs.comp2013.froggerApp.gameEngine.sprites;
 
 /**
  * This abstract class holds the necessary abstractions for a Sprite in a game.
