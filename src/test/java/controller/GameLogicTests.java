@@ -7,10 +7,9 @@ import org.testfx.framework.junit5.ApplicationTest;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.Digit;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
-import uk.ac.nott.cs.comp2013.froggerApp.controller.GameTimer;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class GameLogicTests extends ApplicationTest {
@@ -28,23 +27,28 @@ public class GameLogicTests extends ApplicationTest {
     @Test
     public void testSetNumber() {
         gameLogic.setNumber(123);
-
         ArgumentCaptor<Digit> digitCaptor = ArgumentCaptor.forClass(Digit.class);
         verify(mockBackground, times(3)).add(digitCaptor.capture());
-
-        // Verify correct digits were added
+        // Assert correct digits were added
         assertEquals(3, digitCaptor.getAllValues().size());
     }
 
     @Test
-    public void testHandleGameEnd() {
+    public void testHandleGameEndTrue() {
         when(mockAnimal.getStop()).thenReturn(true);
         when(mockAnimal.getPoints()).thenReturn(800);
-
-        gameLogic.handleGameEnd(true);
-
+        boolean ended = gameLogic.handleGameEnd(true);
         verify(mockBackground).stopMusic();
         verify(mockBackground).stop();
-        // Verify alert is shown
+        /* (+++ refactor to verify alert is shown) */
+        assertTrue(ended);
+    }
+
+    @Test
+    public void testHandleGameEndFalse() {
+        when(mockAnimal.getStop()).thenReturn(false);
+        when(mockAnimal.getPoints()).thenReturn(150);
+        boolean ended = gameLogic.handleGameEnd(true);
+        assertFalse(ended);
     }
 }
