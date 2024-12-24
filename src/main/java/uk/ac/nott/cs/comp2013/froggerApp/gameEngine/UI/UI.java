@@ -1,9 +1,9 @@
-package uk.ac.nott.cs.comp2013.froggerApp.view.UI;
+package uk.ac.nott.cs.comp2013.froggerApp.gameEngine.UI;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
-import uk.ac.nott.cs.comp2013.froggerApp.sprites.Sprite;
+import uk.ac.nott.cs.comp2013.froggerApp.gameEngine.sprites.Sprite;
 
 /**
  * This abstract class builds the necessary UI components for a game.

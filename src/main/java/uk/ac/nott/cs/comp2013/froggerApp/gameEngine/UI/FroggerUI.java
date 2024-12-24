@@ -1,8 +1,8 @@
-package uk.ac.nott.cs.comp2013.froggerApp.view.UI;
+package uk.ac.nott.cs.comp2013.froggerApp.gameEngine.UI;
 
-import uk.ac.nott.cs.comp2013.froggerApp.sprites.Sprite;
-import uk.ac.nott.cs.comp2013.froggerApp.sprites.Car;
-import uk.ac.nott.cs.comp2013.froggerApp.sprites.Frog;
+import uk.ac.nott.cs.comp2013.froggerApp.gameEngine.sprites.Sprite;
+import uk.ac.nott.cs.comp2013.froggerApp.gameEngine.sprites.Car;
+import uk.ac.nott.cs.comp2013.froggerApp.gameEngine.sprites.Frog;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
