@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.*;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.LevelSetup;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 
 import org.testfx.framework.junit5.ApplicationTest;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
