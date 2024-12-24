@@ -69,5 +69,4 @@ public class LevelSetupTests extends ApplicationTest {
         long obstacleCount = mockWorld.getChildren().stream().filter(node -> node instanceof Obstacle).count();
         assertEquals(10, obstacleCount);
     }
-
 }

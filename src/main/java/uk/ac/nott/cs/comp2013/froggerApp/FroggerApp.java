@@ -71,6 +71,6 @@ public class FroggerApp extends Application {
     		  n = d;
     		  background.add(new digit(k, 30, 360 - shift, 25));
     		  shift+=30;
-    		}
+		}
     }
 }
