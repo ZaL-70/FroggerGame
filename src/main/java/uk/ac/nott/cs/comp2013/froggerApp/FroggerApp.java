@@ -10,6 +10,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.view.world.*;
 
 public class FroggerApp extends Application {
 	MyStage background;
+	Scene scene;
 	Animal animal;
 	LevelSetup setupLevel;
 	GameTimer gameTimer;
@@ -27,7 +28,7 @@ public class FroggerApp extends Application {
 		animal = new Animal("file:src/main/resources/imgs/player/action/froggerUp.png");
 		// Create main game level & add to scene
 		background = setupLevel.createLevel1(animal);
-		Scene scene  = new Scene(background,600,800);
+		scene = new Scene(background,600,800);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		// Instantiate & activate game loop's handlers
