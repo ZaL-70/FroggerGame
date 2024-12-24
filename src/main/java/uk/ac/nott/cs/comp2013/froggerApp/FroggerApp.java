@@ -7,6 +7,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.*;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.GameTimer;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.LevelSetup;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.digit;
@@ -16,16 +18,19 @@ public class FroggerApp extends Application {
 	MyStage background;
 	Animal animal;
 
+	GameTimer gameTimer; // to refactor
+	GameLogic logicHandler;	// to refactor
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	// Application start method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		LevelSetup setupLevel = new LevelSetup();
 		animal = new Animal("file:src/main/resources/imgs/player/action/froggerUp.png");
 		background = setupLevel.createLevel1(animal);
-
 		Scene scene  = new Scene(background,600,800);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -38,6 +43,7 @@ public class FroggerApp extends Application {
             public void handle(long now) {
             	if (animal.changeScore()) {
             		setNumber(animal.getPoints());
+					logicHandler.setNumber(animal.getPoints()); // to refactor
             	}
             	if (animal.getStop()) {
             		System.out.print("STOPP:");
@@ -49,6 +55,7 @@ public class FroggerApp extends Application {
             		alert.setHeaderText("Your High Score: "+animal.getPoints()+"!");
             		alert.setContentText("Highest Possible Score: 800");
             		alert.show();
+					logicHandler.handleGameEnd(animal.getStop());	// to refactor
             	}
             }
         };
@@ -57,10 +64,13 @@ public class FroggerApp extends Application {
 		background.playMusic();
     	createTimer();
         timer.start();
-    }
+		gameTimer.createTimer(); // to refactor
+	}
 
+	@Override
     public void stop() {
         timer.stop();
+		gameTimer.stopTimer(); // to refactor
     }
     
     public void setNumber(int n) {
