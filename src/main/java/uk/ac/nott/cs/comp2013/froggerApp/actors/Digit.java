@@ -2,7 +2,7 @@ package uk.ac.nott.cs.comp2013.froggerApp.actors;
 
 import javafx.scene.image.Image;
 
-public class digit extends Actor {
+public class Digit extends Actor {
 	int dim;
 	Image im1;
 	@Override
@@ -11,7 +11,7 @@ public class digit extends Actor {
 		
 	}
 	
-	public digit(int n, int dim, int x, int y) {
+	public Digit(int n, int dim, int x, int y) {
 		im1 = new Image("file:src/main/resources/imgs/info/"+n+".png", dim, dim, true, true);
 		setImage(im1);
 		setX(x);

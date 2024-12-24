@@ -200,7 +200,7 @@ public class Animal extends Actor {
 			
 		}
 		
-		if (getX()>600) {
+		if (getX()>600) {	// refactor to die beyond bound
 			move(-movement*2, 0);
 		}
 		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
@@ -239,7 +239,7 @@ public class Animal extends Actor {
 			setX(300);
 			setY(679.8+movement);
 		}
-		else if (getY()<413){
+		else if (getY()<413){	// refactor for correct y coord
 			waterDeath = true;
 			//setX(300);
 			//setY(679.8+movement);

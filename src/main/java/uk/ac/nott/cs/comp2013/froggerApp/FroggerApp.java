@@ -11,7 +11,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameTimer;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.LevelSetup;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.digit;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.Digit;
 
 public class FroggerApp extends Application {
 	AnimationTimer timer;
@@ -64,7 +64,10 @@ public class FroggerApp extends Application {
 		background.playMusic();
     	createTimer();
         timer.start();
+		logicHandler = new GameLogic(background, animal);
+		gameTimer = new GameTimer(animal, background, logicHandler);
 		gameTimer.createTimer(); // to refactor
+		gameTimer.startTimer();
 	}
 
 	@Override
@@ -79,7 +82,7 @@ public class FroggerApp extends Application {
     		  int d = n / 10;
     		  int k = n - d * 10;
     		  n = d;
-    		  background.add(new digit(k, 30, 360 - shift, 25));
+    		  background.add(new Digit(k, 30, 360 - shift, 25));
     		  shift+=30;
 		}
     }
