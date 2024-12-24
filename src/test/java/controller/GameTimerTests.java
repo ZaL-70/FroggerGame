@@ -22,7 +22,7 @@ public class GameTimerTests {
         mockAnimal = mock(Animal.class);
         mockBackground = mock(MyStage.class);
         mockLogicHandler = mock(GameLogic.class);
-        gameTimer = new GameTimer(mockAnimal, mockBackground, mockLogicHandler);
+        gameTimer = new GameTimer(mockBackground, mockAnimal, mockLogicHandler);
     }
 
     @Test

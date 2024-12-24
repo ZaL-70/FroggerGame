@@ -7,6 +7,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.Digit;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.GameTimer;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
