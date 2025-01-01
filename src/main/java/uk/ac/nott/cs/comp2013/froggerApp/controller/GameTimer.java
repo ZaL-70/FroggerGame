@@ -1,7 +1,7 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
 import javafx.animation.AnimationTimer;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class GameTimer {
@@ -20,10 +20,10 @@ public class GameTimer {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (animal.changeScore()) {
+                if (animal.getScoreChanged()) {
                     logicHandler.setNumber(animal.getPoints());
                 }
-                if(logicHandler.handleGameEnd(animal.getStop())) {
+                if(logicHandler.handleGameEnd()) {
                     stopTimer();
                 }
             }

@@ -3,7 +3,7 @@ package controller;
 import javafx.animation.AnimationTimer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameTimer;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
@@ -27,7 +27,7 @@ public class GameTimerTests {
 
     @Test
     public void testCreateTimerScoreChange() {
-        when(mockAnimal.changeScore()).thenReturn(true);
+        when(mockAnimal.getScoreChanged()).thenReturn(true);
         when(mockAnimal.getPoints()).thenReturn(100);
 
         gameTimer.createTimer();
@@ -44,7 +44,7 @@ public class GameTimerTests {
         gameTimer.createTimer();
         gameTimer.timer.handle(0);
 
-        verify(mockLogicHandler).handleGameEnd(true);
+        verify(mockLogicHandler).handleGameEnd();
         assertEquals(mockAnimal.getPoints(), 0);
     }
 
@@ -68,4 +68,3 @@ public class GameTimerTests {
         verify(mockTimer).stop();
     }
 }
-

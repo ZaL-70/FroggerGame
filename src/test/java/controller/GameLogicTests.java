@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.testfx.framework.junit5.ApplicationTest;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Digit;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Digit;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
@@ -37,7 +37,7 @@ public class GameLogicTests extends ApplicationTest {
     public void testHandleGameEndTrue() {
         when(mockAnimal.getStop()).thenReturn(true);
         when(mockAnimal.getPoints()).thenReturn(800);
-        boolean ended = gameLogic.handleGameEnd(true);
+        boolean ended = gameLogic.handleGameEnd();
         verify(mockBackground).stopMusic();
         verify(mockBackground).stop();
         /* (+++ refactor to verify alert is shown) */
@@ -48,7 +48,7 @@ public class GameLogicTests extends ApplicationTest {
     public void testHandleGameEndFalse() {
         when(mockAnimal.getStop()).thenReturn(false);
         when(mockAnimal.getPoints()).thenReturn(150);
-        boolean ended = gameLogic.handleGameEnd(true);
+        boolean ended = gameLogic.handleGameEnd();
         assertFalse(ended);
     }
 }
