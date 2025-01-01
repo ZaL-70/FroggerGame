@@ -1,6 +1,7 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors;
+package uk.ac.nott.cs.comp2013.froggerApp.actors.level;
 
 import javafx.scene.image.Image;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
 
 public class Log extends Actor {
 
@@ -23,5 +24,9 @@ public class Log extends Actor {
 	}
 	public boolean getLeft() {
 		return speed < 0;
+	}
+
+	public double getSpeed() {
+		return this.speed;
 	}
 }

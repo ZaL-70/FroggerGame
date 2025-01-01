@@ -3,7 +3,7 @@ package uk.ac.nott.cs.comp2013.froggerApp;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.*;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameTimer;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.*;
