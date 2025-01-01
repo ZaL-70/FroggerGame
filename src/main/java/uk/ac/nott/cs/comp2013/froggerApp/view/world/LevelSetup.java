@@ -1,6 +1,7 @@
 package uk.ac.nott.cs.comp2013.froggerApp.view.world;
 
-import uk.ac.nott.cs.comp2013.froggerApp.actors.*;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.*;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
 
 public class LevelSetup {
     private static final String LOG3_FILEPATH = "file:src/main/resources/imgs/obstacle/log3.png";

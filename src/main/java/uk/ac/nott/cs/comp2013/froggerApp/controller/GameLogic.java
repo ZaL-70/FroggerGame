@@ -1,8 +1,9 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
 import javafx.scene.control.Alert;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Digit;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Digit;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class GameLogic {
@@ -15,6 +16,9 @@ public class GameLogic {
     }
 
     public void setNumber(int n) {
+        if(background.getChildren() != null) {
+            background.getChildren().removeIf(node -> node instanceof Digit);
+        }
         int shift = 0;
         while (n > 0) {
             int d = n / 10;
@@ -25,8 +29,8 @@ public class GameLogic {
         }
     }
 
-    public boolean handleGameEnd(boolean stop) {
-        stop = animal.getStop();
+    public boolean handleGameEnd() {
+        boolean stop = animal.getStop();
         if (stop) {
             System.out.print("STOPP:");
             background.stopMusic();

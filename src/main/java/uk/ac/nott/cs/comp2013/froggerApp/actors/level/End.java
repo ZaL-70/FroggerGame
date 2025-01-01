@@ -1,6 +1,7 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors;
+package uk.ac.nott.cs.comp2013.froggerApp.actors.level;
 
 import javafx.scene.image.Image;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
 
 public class End extends Actor {
 	boolean activated = false;
