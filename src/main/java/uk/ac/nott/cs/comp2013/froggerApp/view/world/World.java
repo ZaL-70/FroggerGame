@@ -14,14 +14,15 @@ import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Digit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains event listeners for actors and renders Actor behavior repeatedly
+ * This class must not be instantiated or accessed, as {@link MyStage} is the main class
+ * of the games world that should be used.
+ */
 public class World extends Pane {
-    private static World instance;
     private AnimationTimer t;
-    
-    protected World() {
-        if (instance != null) {
-            throw new RuntimeException("An instance of class: World already exists");
-        }
+
+    private World() {
         sceneProperty().addListener(new ChangeListener<Scene>() {
 			@Override
 			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
@@ -57,13 +58,6 @@ public class World extends Pane {
 				}
 			}
 		});
-    }
-
-    public static World getInstance() {
-        if (instance == null) {
-            instance = new World();
-        }
-        return instance;
     }
 
     public void createTimer() {
