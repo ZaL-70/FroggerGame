@@ -60,30 +60,24 @@ public class Animal extends Actor {
 		this.end++;
 	}
 
-	// AnimalModel
 	public boolean getStop() {
 		return end==5;
 	}
 
-	// AnimalModel
 	public int getPoints() {
 		return points;
 	}
 
-	// AnimalModel
 	public void changeScore(int points, boolean scoreChanged) {
 		this.points = this.points + points;
 		this.scoreChanged = scoreChanged;
 	}
 
-	// AnimalModel
 	public boolean getScoreChanged() {
 		if (scoreChanged) {
 			scoreChanged = false;
 			return true;
 		}
 		return false;
-
 	}
-
 }

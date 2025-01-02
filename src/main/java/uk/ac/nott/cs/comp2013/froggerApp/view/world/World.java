@@ -14,10 +14,14 @@ import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Digit;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class World extends Pane {
+public class World extends Pane {
+    private static World instance;
     private AnimationTimer t;
     
-    public World() {
+    protected World() {
+        if (instance != null) {
+            throw new RuntimeException("An instance of class: World already exists");
+        }
         sceneProperty().addListener(new ChangeListener<Scene>() {
 			@Override
 			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
@@ -55,11 +59,17 @@ public abstract class World extends Pane {
 		});
     }
 
+    public static World getInstance() {
+        if (instance == null) {
+            instance = new World();
+        }
+        return instance;
+    }
+
     public void createTimer() {
         t = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                act(now);
                 List<Actor> actors = getObjects(Actor.class);
                 for (Actor anActor: actors) {
                 	anActor.act(now);
@@ -94,6 +104,4 @@ public abstract class World extends Pane {
         }
         return someArray;
     }
-
-    public abstract void act(long now);
 }
