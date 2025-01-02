@@ -14,10 +14,16 @@ import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Digit;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class World extends Pane {
+/**
+ * This class contains event listeners for actors and renders Actor behavior repeatedly
+ * This class must not be instantiated or accessed and must stay in the world package alongside {@link MyStage},
+ * as that should be the main class to use for custom behaviour. Any necessary looping game behaviour can be added
+ * here and {@link MyStage} will inherit it
+ */
+public class World extends Pane {
     private AnimationTimer t;
-    
-    public World() {
+
+    protected World() {
         sceneProperty().addListener(new ChangeListener<Scene>() {
 			@Override
 			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
@@ -59,7 +65,6 @@ public abstract class World extends Pane {
         t = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                act(now);
                 List<Actor> actors = getObjects(Actor.class);
                 for (Actor anActor: actors) {
                 	anActor.act(now);
@@ -94,6 +99,4 @@ public abstract class World extends Pane {
         }
         return someArray;
     }
-
-    public abstract void act(long now);
 }

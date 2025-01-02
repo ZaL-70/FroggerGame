@@ -4,71 +4,68 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.level.*;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.view.world.LevelSetup;
+import uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 import org.testfx.framework.junit5.ApplicationTest;
-import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
+import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class LevelSetupTests extends ApplicationTest {
-    World mockWorld;
-    Animal mockAnimal;
+    MyStage testWorld;
+    Animal testAnimal;
 
     @BeforeEach
     public void setup() {
-        mockWorld = new World() {
-            @Override
-            public void act(long now) { /*No implementation for this test*/ }
-        };
-        mockAnimal = new Animal("file:src/main/resources/imgs/player/action/froggerUp.png");
+        testWorld = MyStage.getInstance();
+        testAnimal = new Animal("file:src/main/resources/imgs/player/action/froggerUp.png");
     }
 
     @Test
     public void testCreateAnimal() {
-        LevelSetup.createAnimal(mockWorld, mockAnimal);
+        LevelSetup.createAnimal(testWorld, testAnimal);
         // Verify the number of obstacles
-        long animalCount = mockWorld.getChildren().stream().filter(node -> node instanceof Animal).count();
+        long animalCount = testWorld.getChildren().stream().filter(node -> node instanceof Animal).count();
         assertEquals(1, animalCount);
     }
 
     @Test
     public void testCreateEndPoints() {
-        LevelSetup.createEndPoints(mockWorld);
+        LevelSetup.createEndPoints(testWorld);
         // Verify the number of obstacles
-        long endPointCount = mockWorld.getChildren().stream().filter(node -> node instanceof End).count();
+        long endPointCount = testWorld.getChildren().stream().filter(node -> node instanceof End).count();
         assertEquals(5, endPointCount);
     }
 
     @Test
     public void testCreateLogs() {
-        LevelSetup.createLogs(mockWorld);
+        LevelSetup.createLogs(testWorld);
         // Verify the number of obstacles
-        long logCount = mockWorld.getChildren().stream().filter(node -> node instanceof Log).count();
+        long logCount = testWorld.getChildren().stream().filter(node -> node instanceof Log).count();
         assertEquals(8, logCount);
     }
 
     @Test
     public void testCreateWetTurtles() {
-        LevelSetup.createWetTurtles(mockWorld);
+        LevelSetup.createWetTurtles(testWorld);
         // Verify the number of obstacles
-        long wetTurtleCount = mockWorld.getChildren().stream().filter(node -> node instanceof WetTurtle).count();
+        long wetTurtleCount = testWorld.getChildren().stream().filter(node -> node instanceof WetTurtle).count();
         assertEquals(4, wetTurtleCount);
     }
 
     @Test
     public void testCreateTurtles() {
-        LevelSetup.createTurtles(mockWorld);
+        LevelSetup.createTurtles(testWorld);
         // Verify the number of obstacles
-        long turtleCount = mockWorld.getChildren().stream().filter(node -> node instanceof Turtle).count();
+        long turtleCount = testWorld.getChildren().stream().filter(node -> node instanceof Turtle).count();
         assertEquals(2, turtleCount);
     }
 
     @Test
     public void testCreateObstacles() {
-        LevelSetup.createObstacles(mockWorld);
+        LevelSetup.createObstacles(testWorld);
         // Verify the number of obstacles
-        long obstacleCount = mockWorld.getChildren().stream().filter(node -> node instanceof Obstacle).count();
+        long obstacleCount = testWorld.getChildren().stream().filter(node -> node instanceof Obstacle).count();
         assertEquals(10, obstacleCount);
     }
 }
