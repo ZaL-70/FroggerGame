@@ -16,13 +16,14 @@ import java.util.List;
 
 /**
  * This class contains event listeners for actors and renders Actor behavior repeatedly
- * This class must not be instantiated or accessed, as {@link MyStage} is the main class
- * of the games world that should be used.
+ * This class must not be instantiated or accessed and must stay in the world package alongside {@link MyStage},
+ * as that should be the main class to use for custom behaviour. Any necessary looping game behaviour can be added
+ * here and {@link MyStage} will inherit it
  */
 public class World extends Pane {
     private AnimationTimer t;
 
-    private World() {
+    protected World() {
         sceneProperty().addListener(new ChangeListener<Scene>() {
 			@Override
 			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {

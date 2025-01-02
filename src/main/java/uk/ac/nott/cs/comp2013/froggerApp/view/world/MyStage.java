@@ -10,7 +10,8 @@ public class MyStage extends World {
 	MediaPlayer mediaPlayer;
 	
 	private MyStage() {
-		if (instance != null) {
+        super();
+        if (instance != null) {
 			throw new RuntimeException("An instance of class: MyStage already exists");
 		}
 	}

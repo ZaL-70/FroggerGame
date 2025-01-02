@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.level.*;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.view.world.LevelSetup;
+import uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
