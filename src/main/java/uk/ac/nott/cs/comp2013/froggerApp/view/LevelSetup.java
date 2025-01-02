@@ -1,7 +1,9 @@
-package uk.ac.nott.cs.comp2013.froggerApp.view.world;
+package uk.ac.nott.cs.comp2013.froggerApp.view;
 
 import uk.ac.nott.cs.comp2013.froggerApp.actors.level.*;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
+import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
 
 public class LevelSetup {
     private static final String LOG3_FILEPATH = "file:src/main/resources/imgs/obstacle/log3.png";
@@ -13,7 +15,7 @@ public class LevelSetup {
     private static final String TRUCK2_RIGHT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck2Right.png";
     private static final String TRUCK2_LEFT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck2Left.png";
     private static final String BACKGROUND_IMAGE = "file:src/main/resources/imgs/world/frog-background.png";
-    MyStage world = new MyStage();
+    MyStage world = MyStage.getInstance();
 
     public MyStage createLevel1(Animal animal) {
         world.add(new BackgroundImage(BACKGROUND_IMAGE));

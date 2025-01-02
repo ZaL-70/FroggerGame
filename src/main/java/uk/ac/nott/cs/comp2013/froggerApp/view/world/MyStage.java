@@ -6,25 +6,21 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 public class MyStage extends World {
+	private static MyStage instance;
 	MediaPlayer mediaPlayer;
-	@Override
-	public void act(long now) {
-		
-	}
 	
-	public MyStage() {
-		
-//		mediaPlayer.play();
-//		mediaPlayer.setOnEndOfMedia(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				mediaPlayer.seek(Duration.ZERO);
-//				
-//			}
-//			
-//		});
-//		mediaPlayer.play();
+	private MyStage() {
+        super();
+        if (instance != null) {
+			throw new RuntimeException("An instance of class: MyStage already exists");
+		}
+	}
+
+	public static MyStage getInstance() {
+		if (instance == null) {
+			instance = new MyStage();
+		}
+		return instance;
 	}
 	
 	public void playMusic() {

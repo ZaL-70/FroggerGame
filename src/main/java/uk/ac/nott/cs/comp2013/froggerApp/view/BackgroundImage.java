@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.comp2013.froggerApp.view.world;
+package uk.ac.nott.cs.comp2013.froggerApp.view;
 
 import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
