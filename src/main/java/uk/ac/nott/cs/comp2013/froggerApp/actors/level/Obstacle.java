@@ -5,6 +5,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
 
 public class Obstacle extends Actor {
 	private int speed;
+
 	@Override
 	public void act(long now) {
 		move(speed , 0);
@@ -13,12 +14,8 @@ public class Obstacle extends Actor {
 		if (getX() < -50 && speed<0)
 			setX(600);
 	}
-	
-	public Obstacle(String imageLink, int xpos, int ypos, int s, int w, int h) {
-		setImage(new Image(imageLink, w,h, true, true));
-		setX(xpos);
-		setY(ypos);
-		speed = s;
-	}
 
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
 }

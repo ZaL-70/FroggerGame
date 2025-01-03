@@ -1,6 +1,7 @@
 package uk.ac.nott.cs.comp2013.froggerApp.actors.player;
 
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.*;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
@@ -18,9 +19,22 @@ public class Animal extends Actor {
 	State deathState;
 	AnimalController animalController;
 
+	public static final String FROG_UP = "file:src/main/resources/imgs/player/action/froggerUp.png";
+	public static final String FROG_UP_JUMP = "file:src/main/resources/imgs/player/action/froggerUpJump.png";
+	public static final String FROG_DOWN = "file:src/main/resources/imgs/player/action/froggerDown.png" ;
+	public static final String FROG_DOWN_JUMP = "file:src/main/resources/imgs/player/action/froggerDownJump.png";
+	public static final String FROG_LEFT = "file:src/main/resources/imgs/player/action/froggerLeft.png";
+	public static final String FROG_LEFT_JUMP = "file:src/main/resources/imgs/player/action/froggerLeftJump.png";
+	public static final String FROG_RIGHT = "file:src/main/resources/imgs/player/action/froggerRight.png";
+	public static final String FROG_RIGHT_JUMP = "file:src/main/resources/imgs/player/action/froggerRightJump.png";
+
 	// Animal (actor/entity) constructor adds behavior via a controller
 	public Animal(String imageLink) {
-		animalController = new AnimalController(this);
+		setImage(new Image(imageLink));
+	}
+
+	public void initialise(AnimalController animalController) {
+		this.animalController = animalController;
 		animalController.respawn();
 
 		setOnKeyPressed(new EventHandler<KeyEvent>() {

@@ -1,21 +1,35 @@
 package uk.ac.nott.cs.comp2013.froggerApp.view;
 
 import uk.ac.nott.cs.comp2013.froggerApp.actors.level.*;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.factories.LogFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.factories.ObstacleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.factories.TurtleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.factories.WetTurtleFactory;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
 
 public class LevelSetup {
-    private static final String LOG3_FILEPATH = "file:src/main/resources/imgs/obstacle/log3.png";
-    private static final String LOGS_FILEPATH = "file:src/main/resources/imgs/obstacle/logs.png";
-    private static final String CAR1_RIGHT_FILEPATH = "file:src/main/resources/imgs/obstacle/car1Right.png";
-    private static final String CAR1_LEFT_FILEPATH = "file:src/main/resources/imgs/obstacle/car1Left.png";
-    private static final String TRUCK1_RIGHT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck1Right.png";
-    private static final String TRUCK1_LEFT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck1Left.png";
-    private static final String TRUCK2_RIGHT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck2Right.png";
-    private static final String TRUCK2_LEFT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck2Left.png";
-    private static final String BACKGROUND_IMAGE = "file:src/main/resources/imgs/world/frog-background.png";
+    public static final String LOG3_FILEPATH = "file:src/main/resources/imgs/obstacle/log3.png";
+    public static final String LOGS_FILEPATH = "file:src/main/resources/imgs/obstacle/logs.png";
+    public static final String CAR1_RIGHT_FILEPATH = "file:src/main/resources/imgs/obstacle/car1Right.png";
+    public static final String CAR1_LEFT_FILEPATH = "file:src/main/resources/imgs/obstacle/car1Left.png";
+    public static final String TRUCK1_RIGHT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck1Right.png";
+    public static final String TRUCK1_LEFT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck1Left.png";
+    public static final String TRUCK2_RIGHT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck2Right.png";
+    public static final String TRUCK2_LEFT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck2Left.png";
+    public static final String BACKGROUND_IMAGE = "file:src/main/resources/imgs/world/frog-background2.png";
     MyStage world = MyStage.getInstance();
+
+    public static final double BOARD_HEIGHT = 800;
+    public static final double BOARD_WIDTH = 600;
+    public static final double BASE_Y = 166;
+    public static final double TOTAL_ROWS = 12;
+    public static final double ROW_HEIGHT = (BOARD_HEIGHT - BASE_Y) / TOTAL_ROWS;
+
+    public static double rowToY(int row) {
+        return BASE_Y + ((TOTAL_ROWS - row) * ROW_HEIGHT);
+    }
 
     public MyStage createLevel1(Animal animal) {
         world.add(new BackgroundImage(BACKGROUND_IMAGE));
@@ -45,38 +59,48 @@ public class LevelSetup {
     }
 
     public static void createLogs(World world) {
-        world.add(new Log(LOG3_FILEPATH, 150, 0, 166, 0.75));
-        world.add(new Log(LOG3_FILEPATH, 150, 220, 166, 0.75));
-        world.add(new Log(LOG3_FILEPATH, 150, 440, 166, 0.75));
-        world.add(new Log(LOGS_FILEPATH, 300, 0, 276, -2));
-        world.add(new Log(LOGS_FILEPATH, 300, 400, 276, -2));
-        world.add(new Log(LOG3_FILEPATH, 150, 50, 329, 0.75));
-        world.add(new Log(LOG3_FILEPATH, 150, 270, 329, 0.75));
-        world.add(new Log(LOG3_FILEPATH, 150, 490, 329, 0.75));
+        // Row 5 logs, gap 220, right, slow
+        world.add(LogFactory.createLog(LOG3_FILEPATH, 150, 0, 12, 0.75));
+        world.add(LogFactory.createLog(LOG3_FILEPATH, 150, 220, 12, 0.75));
+        world.add(LogFactory.createLog(LOG3_FILEPATH, 150, 440, 12, 0.75));
+        // Row 3 logs, gap 400, left fast
+        world.add(LogFactory.createLog(LOGS_FILEPATH, 300, 0, 10, -2));
+        world.add(LogFactory.createLog(LOGS_FILEPATH, 300, 400, 10, -2));
+        // Row 2 logs, gap 220, right, slow
+        world.add(LogFactory.createLog(LOG3_FILEPATH, 150, 50, 9, 0.75));
+        world.add(LogFactory.createLog(LOG3_FILEPATH, 150, 270, 9, 0.75));
+        world.add(LogFactory.createLog(LOG3_FILEPATH, 150, 490, 9, 0.75));
     }
 
     public static void createWetTurtles(World world) {
-        world.add(new WetTurtle(700, 376, -1, 130, 130));
-        world.add(new WetTurtle(600, 217, -1, 130, 130));
-        world.add(new WetTurtle(400, 217, -1, 130, 130));
-        world.add(new WetTurtle(200, 217, -1, 130, 130));
+        // Row 4 wet turtles, gap 200, left, medium
+        world.add(WetTurtleFactory.createWetTurtle(130,200,11,-1));
+        world.add(WetTurtleFactory.createWetTurtle(130,400,11,-1));
+        world.add(WetTurtleFactory.createWetTurtle(130,600,11,-1));
+        // Row 1 wet turtle, left, medium
+        world.add(WetTurtleFactory.createWetTurtle(130,700,8,-1));
     }
 
     public static void createTurtles(World world) {
-        world.add(new Turtle(500, 376, -1, 130, 130));
-        world.add(new Turtle(300, 376, -1, 130, 130));
+        // Row 1 turtles, gap 200, left medium
+        world.add(TurtleFactory.createTurtle(130,300,8,-1));
+        world.add(TurtleFactory.createTurtle(130,500,8,-1));
     }
 
     public static void createObstacles(World world) {
-        world.add(new Obstacle(TRUCK1_RIGHT_FILEPATH, 0, 649, 1, 120, 120));
-        world.add(new Obstacle(TRUCK1_RIGHT_FILEPATH, 300, 649, 1, 120, 120));
-        world.add(new Obstacle(TRUCK1_RIGHT_FILEPATH, 600, 649, 1, 120, 120));
-        world.add(new Obstacle(CAR1_LEFT_FILEPATH, 100, 597, -1, 50, 50));
-        world.add(new Obstacle(CAR1_LEFT_FILEPATH, 250, 597, -1, 50, 50));
-        world.add(new Obstacle(CAR1_LEFT_FILEPATH, 400, 597, -1, 50, 50));
-        world.add(new Obstacle(CAR1_LEFT_FILEPATH, 550, 597, -1, 50, 50));
-        world.add(new Obstacle(TRUCK2_RIGHT_FILEPATH, 0, 540, 1, 200, 200));
-        world.add(new Obstacle(TRUCK2_RIGHT_FILEPATH, 500, 540, 1, 200, 200));
-        world.add(new Obstacle(CAR1_LEFT_FILEPATH, 500, 490, -5, 50, 50));
+        // Row 1 trucks, gap 300, right, medium
+        world.add(ObstacleFactory.createObstacle(TRUCK1_RIGHT_FILEPATH, 120,0,3,1));
+        world.add(ObstacleFactory.createObstacle(TRUCK1_RIGHT_FILEPATH, 120,300,3,1));
+        world.add(ObstacleFactory.createObstacle(TRUCK1_RIGHT_FILEPATH, 120,600,3,1));
+        // Row 2 cars, gap 150, left, medium
+        world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH, 50,100,4, -1));
+        world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH, 50,250,4, -1));
+        world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH, 50,400,4, -1));
+        world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH, 50,550 ,4, -1));
+        // Row 3 trucks, gap 500, right, medium
+        world.add(ObstacleFactory.createObstacle(TRUCK2_RIGHT_FILEPATH,200,0,5,1));
+        world.add(ObstacleFactory.createObstacle(TRUCK2_RIGHT_FILEPATH,200,500,5,1));
+        // Row 4 car, left, superfast
+        world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH,50,500,6,-5));
     }
 }
