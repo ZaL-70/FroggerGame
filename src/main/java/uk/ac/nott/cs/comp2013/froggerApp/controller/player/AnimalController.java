@@ -17,22 +17,22 @@ import static uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal.State;
  */
 public class AnimalController {
     Animal animal;
-    double movementY = LevelSetup.ROW_HEIGHT / 2, movementX = 10.666666*2, w = 800;
-    int imgSize = 40, carD = 0;
+    double movementY = LevelSetup.ROW_HEIGHT / 2, movementX = 10.666666*2, maxHeight = LevelSetup.BOARD_HEIGHT;
+    int frogSize = 40, deathTime = 0;
     List<End> inter = new ArrayList<End>();
 
     Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
 
     public AnimalController(Animal animal) {
         this.animal = animal;
-        imgW1 = new Image(Animal.FROG_UP, imgSize, imgSize, true, true);
-        imgA1 = new Image(Animal.FROG_LEFT, imgSize, imgSize, true, true);
-        imgS1 = new Image(Animal.FROG_DOWN, imgSize, imgSize, true, true);
-        imgD1 = new Image(Animal.FROG_RIGHT, imgSize, imgSize, true, true);
-        imgW2 = new Image(Animal.FROG_UP_JUMP, imgSize, imgSize, true, true);
-        imgA2 = new Image(Animal.FROG_LEFT_JUMP, imgSize, imgSize, true, true);
-        imgS2 = new Image(Animal.FROG_DOWN_JUMP, imgSize, imgSize, true, true);
-        imgD2 = new Image(Animal.FROG_RIGHT_JUMP, imgSize, imgSize, true, true);
+        imgW1 = new Image(Animal.FROG_UP, frogSize, frogSize, true, true);
+        imgA1 = new Image(Animal.FROG_LEFT, frogSize, frogSize, true, true);
+        imgS1 = new Image(Animal.FROG_DOWN, frogSize, frogSize, true, true);
+        imgD1 = new Image(Animal.FROG_RIGHT, frogSize, frogSize, true, true);
+        imgW2 = new Image(Animal.FROG_UP_JUMP, frogSize, frogSize, true, true);
+        imgA2 = new Image(Animal.FROG_LEFT_JUMP, frogSize, frogSize, true, true);
+        imgS2 = new Image(Animal.FROG_DOWN_JUMP, frogSize, frogSize, true, true);
+        imgD2 = new Image(Animal.FROG_RIGHT_JUMP, frogSize, frogSize, true, true);
     }
 
     public void onKeyPress(KeyEvent event) {
@@ -64,9 +64,9 @@ public class AnimalController {
         else {
             switch (event.getCode()) {
                 case KeyCode.W:
-                    if (animal.getY() < w) {
+                    if (animal.getY() < maxHeight) {
                         animal.changeScore(10, true);
-                        w = animal.getY();
+                        maxHeight = animal.getY();
                     }
                     animal.move(0, -movementY);
                     animal.setImage(imgW1);
@@ -89,7 +89,7 @@ public class AnimalController {
 
     public void respawn() {
         animal.setState(State.alive);
-        animal.setImage(new Image(Animal.FROG_UP, imgSize, imgSize, true, true));
+        animal.setImage(new Image(Animal.FROG_UP, frogSize, frogSize, true, true));
         animal.setX(300);
         animal.setY(LevelSetup.rowToY(2));
     }
@@ -151,7 +151,7 @@ public class AnimalController {
                 animal.changeScore(50, true);
                 animal.incrementStop();
             }
-            w = 800;
+            maxHeight = LevelSetup.BOARD_HEIGHT;
             animal.getIntersectingObjects(End.class).getFirst().setEnd();
             respawn();
         }
@@ -160,45 +160,45 @@ public class AnimalController {
     // Animation, animate in a view class by updating actor image
     public void handleDeath(long now) {
         if (animal.getState() == State.carDeath) {
-            if ((now)% 11 == 0) {
-                carD++;
+            if (now % 11 == 0) {
+                deathTime++;
             }
-            if (carD==1) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath1.png", imgSize, imgSize, true, true));
+            if (deathTime == 1) {
+                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath1.png", frogSize, frogSize, true, true));
             }
-            if (carD==2) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath2.png", imgSize, imgSize, true, true));
+            if (deathTime == 2) {
+                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath2.png", frogSize, frogSize, true, true));
             }
-            if (carD==3) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath3.png", imgSize, imgSize, true, true));
+            if (deathTime == 3) {
+                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath3.png", frogSize, frogSize, true, true));
             }
-            if (carD == 4) {
+            if (deathTime == 4) {
                 respawn();
-                carD = 0;
+                deathTime = 0;
                 if (animal.getPoints() > 50) {
                     animal.changeScore(-50, true);
                 }
             }
         }
         if (animal.getState() == State.waterDeath) {
-            if ((now)% 11 ==0) {
-                carD++;
+            if (now % 11 == 0) {
+                deathTime++;
             }
-            if (carD==1) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath1.png", imgSize,imgSize , true, true));
+            if (deathTime == 1) {
+                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath1.png", frogSize, frogSize, true, true));
             }
-            if (carD==2) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath2.png", imgSize,imgSize , true, true));
+            if (deathTime == 2) {
+                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath2.png", frogSize, frogSize, true, true));
             }
-            if (carD==3) {
-                animal.setImage(new Image("file:src/main/resources/player/death/waterdeath3.png", imgSize,imgSize , true, true));
+            if (deathTime == 3) {
+                animal.setImage(new Image("file:src/main/resources/player/death/waterdeath3.png", frogSize, frogSize, true, true));
             }
-            if (carD == 4) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath4.png", imgSize,imgSize , true, true));
+            if (deathTime == 4) {
+                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath4.png", frogSize, frogSize, true, true));
             }
-            if (carD == 5) {
+            if (deathTime == 5) {
                 respawn();
-                carD = 0;
+                deathTime = 0;
                 if (animal.getPoints() > 50) {
                     animal.changeScore(-50, true);
                 }

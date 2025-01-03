@@ -19,13 +19,14 @@ public class LevelSetup {
     public static final String TRUCK2_RIGHT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck2Right.png";
     public static final String TRUCK2_LEFT_FILEPATH = "file:src/main/resources/imgs/obstacle/truck2Left.png";
     public static final String BACKGROUND_IMAGE = "file:src/main/resources/imgs/world/frog-background2.png";
-    MyStage world = MyStage.getInstance();
 
     public static final double BOARD_HEIGHT = 800;
     public static final double BOARD_WIDTH = 600;
     public static final double BASE_Y = 166;
     public static final double TOTAL_ROWS = 12;
     public static final double ROW_HEIGHT = (BOARD_HEIGHT - BASE_Y) / TOTAL_ROWS;
+
+    MyStage world = MyStage.getInstance();
 
     public static double rowToY(int row) {
         return BASE_Y + ((TOTAL_ROWS - row) * ROW_HEIGHT);

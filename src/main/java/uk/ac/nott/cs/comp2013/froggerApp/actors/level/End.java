@@ -5,6 +5,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
 
 public class End extends Actor {
 	boolean activated = false;
+
 	@Override
 	public void act(long now) {
 		// TODO Auto-generated method stub

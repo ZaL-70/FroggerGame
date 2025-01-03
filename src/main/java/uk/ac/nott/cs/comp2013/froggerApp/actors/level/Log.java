@@ -21,4 +21,5 @@ public class Log extends Actor {
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+
 }

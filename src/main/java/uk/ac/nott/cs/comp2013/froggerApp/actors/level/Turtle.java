@@ -8,10 +8,8 @@ public class Turtle extends Actor {
 	public static final String TURTLE_ANIMATION2 = "file:src/main/resources/imgs/obstacle/TurtleAnimation2.png";
 	public static final String TURTLE_ANIMATION3 = "file:src/main/resources/imgs/obstacle/TurtleAnimation3.png";
 
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
-	public int speed;
+	Image turtle1, turtle2, turtle3;
+	private double speed;
 
 	@Override
 	public void act(long now) {
@@ -38,7 +36,8 @@ public class Turtle extends Actor {
 		setImage(turtle2);
 	}
 
-	public void setSpeed(int speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+
 }

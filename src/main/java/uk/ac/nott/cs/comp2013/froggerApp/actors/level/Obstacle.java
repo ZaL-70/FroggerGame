@@ -1,10 +1,9 @@
 package uk.ac.nott.cs.comp2013.froggerApp.actors.level;
 
-import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
 
 public class Obstacle extends Actor {
-	private int speed;
+	private double speed;
 
 	@Override
 	public void act(long now) {
@@ -15,7 +14,8 @@ public class Obstacle extends Actor {
 			setX(600);
 	}
 
-	public void setSpeed(int speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+
 }

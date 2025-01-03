@@ -8,12 +8,9 @@ public class WetTurtle extends Actor {
 	public static final String TURTLE_WET_ANIMATION2 = "file:src/main/resources/imgs/obstacle/TurtleAnimation3Wet.png";
 	public static final String TURTLE_WET_ANIMATION3 = "file:src/main/resources/imgs/obstacle/TurtleAnimation4Wet.png";
 
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
-	Image turtle4;
+	Image turtle1, turtle2, turtle3, turtle4;
 
-	int speed;
+	double speed;
 	boolean sunk = false;
 
 	@Override
@@ -53,7 +50,8 @@ public class WetTurtle extends Actor {
 		setImage(turtle2);
 	}
 
-	public void setSpeed(int speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+
 }

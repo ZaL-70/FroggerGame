@@ -4,19 +4,18 @@ import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
 
 public class Digit extends Actor {
-	int dim;
-	Image im1;
+	Image imgDigit;
+
 	@Override
 	public void act(long now) {
 		// TODO Auto-generated method stub
-		
 	}
 	
-	public Digit(int n, int dim, int x, int y) {
-		im1 = new Image("file:src/main/resources/imgs/info/"+n+".png", dim, dim, true, true);
-		setImage(im1);
-		setX(x);
-		setY(y);
+	public Digit(int n, int size, int xpos, int ypos) {
+		imgDigit = new Image("file:src/main/resources/imgs/info/"+n+".png", size, size, true, true);
+		setImage(imgDigit);
+		setX(xpos);
+		setY(ypos);
 	}
 	
 }

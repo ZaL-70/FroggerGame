@@ -7,24 +7,24 @@ import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Digit;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class GameLogic {
-    MyStage background;
+    MyStage world;
     Animal animal;
 
-    public GameLogic(MyStage background, Animal animal) {
-        this.background = background;
+    public GameLogic(MyStage world, Animal animal) {
+        this.world = world;
         this.animal = animal;
     }
 
     public void setNumber(int n) {
-        if(background.getChildren() != null) {
-            background.getChildren().removeIf(node -> node instanceof Digit);
+        if(world.getChildren() != null) {
+            world.getChildren().removeIf(node -> node instanceof Digit);
         }
         int shift = 0;
         while (n > 0) {
             int d = n / 10;
             int k = n - d * 10;
             n = d;
-            background.add(new Digit(k,30, 360-shift, 25));
+            world.add(new Digit(k,30, 360-shift, 25));
             shift += 30;
         }
     }
@@ -33,8 +33,8 @@ public class GameLogic {
         boolean stop = animal.getStop();
         if (stop) {
             System.out.print("STOPP:");
-            background.stopMusic();
-            background.stop();
+            world.stopMusic();
+            world.stop();
             //showAlert();  // refactor to alternative method (add onscreen feature)
         }
         return stop;
