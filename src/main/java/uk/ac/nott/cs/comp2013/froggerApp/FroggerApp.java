@@ -4,15 +4,16 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
-import uk.ac.nott.cs.comp2013.froggerApp.controller.GameTimer;
-import uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.*;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
+import uk.ac.nott.cs.comp2013.froggerApp.view.*;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.*;
 
 public class FroggerApp extends Application {
 	MyStage background;
 	Scene scene;
 	Animal animal;
+	AnimalController animalController;
 	LevelSetup setupLevel;
 	GameTimer gameTimer;
 	GameLogic logicHandler;
@@ -26,10 +27,11 @@ public class FroggerApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// Instantiate Level creator & player
 		setupLevel = new LevelSetup();
-		animal = new Animal("file:src/main/resources/imgs/player/action/froggerUp.png");
+		animal = new Animal(Animal.FROG_UP);
+		animalController = new AnimalController(animal);
 		// Create main game level & add to scene
 		background = setupLevel.createLevel1(animal);
-		scene = new Scene(background,600,800);
+		scene = new Scene(background,LevelSetup.BOARD_WIDTH,LevelSetup.BOARD_HEIGHT);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		// Instantiate & activate game loop's handlers
@@ -37,6 +39,7 @@ public class FroggerApp extends Application {
 	}
 
 	public void startGame() {
+		animal.initialise(animalController);
 		background.playMusic();
 		logicHandler = new GameLogic(background, animal);
 		gameTimer = new GameTimer(background, animal, logicHandler);
