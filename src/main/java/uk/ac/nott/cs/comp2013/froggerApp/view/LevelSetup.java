@@ -96,6 +96,7 @@ public class LevelSetup {
         world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH, 50,100,4, -1));
         world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH, 50,250,4, -1));
         world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH, 50,400,4, -1));
+        world.add(ObstacleFactory.createObstacle(CAR1_LEFT_FILEPATH, 50,550 ,4, -1));
         // Row 3 trucks, gap 500, right, medium
         world.add(ObstacleFactory.createObstacle(TRUCK2_RIGHT_FILEPATH,200,0,5,1));
         world.add(ObstacleFactory.createObstacle(TRUCK2_RIGHT_FILEPATH,200,500,5,1));
