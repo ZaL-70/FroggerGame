@@ -4,6 +4,9 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.*;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
 
 public class Animal extends Actor {
@@ -11,6 +14,7 @@ public class Animal extends Actor {
 		alive,
 		waterDeath,
 		carDeath,
+		endDeath
 	}
 
 	int points = 0;
@@ -27,10 +31,20 @@ public class Animal extends Actor {
 	public static final String FROG_LEFT_JUMP = "file:src/main/resources/imgs/player/action/froggerLeftJump.png";
 	public static final String FROG_RIGHT = "file:src/main/resources/imgs/player/action/froggerRight.png";
 	public static final String FROG_RIGHT_JUMP = "file:src/main/resources/imgs/player/action/froggerRightJump.png";
+	public static final int FROG_SIZE = 40;
+	public static Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
 
 	// Animal (actor/entity) constructor adds behavior via a controller
 	public Animal(String imageLink) {
 		setImage(new Image(imageLink));
+		imgW1 = new Image(Animal.FROG_UP, FROG_SIZE, FROG_SIZE, true, true);
+		imgA1 = new Image(Animal.FROG_LEFT, FROG_SIZE, FROG_SIZE, true, true);
+		imgS1 = new Image(Animal.FROG_DOWN, FROG_SIZE, FROG_SIZE, true, true);
+		imgD1 = new Image(Animal.FROG_RIGHT, FROG_SIZE, FROG_SIZE, true, true);
+		imgW2 = new Image(Animal.FROG_UP_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+		imgA2 = new Image(Animal.FROG_LEFT_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+		imgS2 = new Image(Animal.FROG_DOWN_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+		imgD2 = new Image(Animal.FROG_RIGHT_JUMP, FROG_SIZE, FROG_SIZE, true, true);
 	}
 
 	public void initialise(AnimalController animalController) {
@@ -54,10 +68,10 @@ public class Animal extends Actor {
 	public void act(long now) {
 		// Handle boundary component
 		animalController.handleBoundary();
-		// Handle death
-		animalController.handleDeath(now);
 		// Set death state
 		animalController.updateDeathState();
+		// Handle death
+		animalController.handleDeath(now);
 		// Handle interactions with other Actors
 		animalController.handleActorInteraction();
 	}
@@ -93,5 +107,12 @@ public class Animal extends Actor {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean getOnObstacle() {
+        return !getIntersectingObjects(Log.class).isEmpty() ||
+                !getIntersectingObjects(Turtle.class).isEmpty() ||
+                (!getIntersectingObjects(WetTurtle.class).isEmpty() &&
+                        !getIntersectingObjects(WetTurtle.class).get(0).isSunk());
 	}
 }
