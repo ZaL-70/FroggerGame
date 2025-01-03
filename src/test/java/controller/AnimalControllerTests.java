@@ -11,6 +11,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Obstacle;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
+import uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup;
 
 import java.util.List;
 
@@ -30,47 +31,38 @@ public class AnimalControllerTests extends ApplicationTest {
     @Test
     void testRespawn() {
         controller.respawn();
-
         verify(mockAnimal).setState(Animal.State.alive);
         verify(mockAnimal).setImage(any()); // Verify an image is set
         verify(mockAnimal).setX(300);
-        verify(mockAnimal).setY(679.8 + 13.333333 * 2);
+        verify(mockAnimal).setY(LevelSetup.rowToY(2));
     }
 
     @Test
     void testHandleBoundaryTop() {
         when(mockAnimal.getY()).thenReturn(-1.0);
-
         controller.handleBoundary();
-
-        verify(mockAnimal).setY(679.8 + 13.333333 * 2);
+        verify(mockAnimal).setY(LevelSetup.rowToY(2));
     }
 
     @Test
     void testHandleBoundaryBottom() {
         when(mockAnimal.getY()).thenReturn(735.0);
-
         controller.handleBoundary();
-
-        verify(mockAnimal).setY(679.8 + 13.333333 * 2);
+        verify(mockAnimal).setY(LevelSetup.rowToY(2));
     }
 
     @Test
     void testHandleBoundaryLeft() {
         when(mockAnimal.getX()).thenReturn(-1.0);
-
         controller.handleBoundary();
-
         verify(mockAnimal).move(10.666666 * 2, 0); // Moved back into bounds
     }
 
     @Test
     void testHandleBoundaryRight() {
         when(mockAnimal.getX()).thenReturn(601.0);
-
         controller.handleBoundary();
-
-        verify(mockAnimal).move(-10.666666 * 2, 0); // Moved back into bounds
+        verify(mockAnimal).move(-10.666666 * 2, 0);
     }
 
     @Test
@@ -80,7 +72,7 @@ public class AnimalControllerTests extends ApplicationTest {
         KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W, false, false, false, false);
         controller.onKeyPress(keyEvent);
 
-        verify(mockAnimal).move(0, -13.333333 * 2);
+        verify(mockAnimal).move(0, -LevelSetup.ROW_HEIGHT / 2);
         verify(mockAnimal).setImage(any()); // Image for jumping upward
     }
 
@@ -100,9 +92,7 @@ public class AnimalControllerTests extends ApplicationTest {
     void testNoMoveOnCarDeath() {
         KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.A, false, false, false, false);
         controller.onKeyPress(keyEvent);
-
         when(mockAnimal.getState()).thenReturn(Animal.State.carDeath); // Mock non-alive state
-
         verify(mockAnimal).getState();
         verifyNoMoreInteractions(mockAnimal);
     }
@@ -111,9 +101,7 @@ public class AnimalControllerTests extends ApplicationTest {
     void testUpdateStateCarDeath() {
         Obstacle mockObstacle = mock(Obstacle.class);
         when(mockAnimal.getIntersectingObjects(Obstacle.class)).thenReturn(List.of(mockObstacle));
-
         controller.updateDeathState();
-
         verify(mockAnimal).setState(Animal.State.carDeath);
     }
 

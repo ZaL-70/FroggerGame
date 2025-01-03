@@ -5,6 +5,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.level.*;
 import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,34 +17,24 @@ import static uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal.State;
  */
 public class AnimalController {
     Animal animal;
-    double movementY = 13.333333*2, movementX = 10.666666*2, w = 800;
+    double movementY = LevelSetup.ROW_HEIGHT / 2, movementX = 10.666666*2, w = 800;
     int imgSize = 40, carD = 0;
     List<End> inter = new ArrayList<End>();
-
-    private static final String FROG_UP = "file:src/main/resources/imgs/player/action/froggerUp.png";
-    private static final String FROG_UP_JUMP = "file:src/main/resources/imgs/player/action/froggerUpJump.png";
-    private static final String FROG_DOWN = "file:src/main/resources/imgs/player/action/froggerDown.png" ;
-    private static final String FROG_DOWN_JUMP = "file:src/main/resources/imgs/player/action/froggerDownJump.png";
-    private static final String FROG_LEFT = "file:src/main/resources/imgs/player/action/froggerLeft.png";
-    private static final String FROG_LEFT_JUMP = "file:src/main/resources/imgs/player/action/froggerLeftJump.png";
-    private static final String FROG_RIGHT = "file:src/main/resources/imgs/player/action/froggerRight.png";
-    private static final String FROG_RIGHT_JUMP = "file:src/main/resources/imgs/player/action/froggerRightJump.png";
 
     Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
 
     public AnimalController(Animal animal) {
         this.animal = animal;
-        imgW1 = new Image(FROG_UP, imgSize, imgSize, true, true);
-        imgA1 = new Image(FROG_LEFT, imgSize, imgSize, true, true);
-        imgS1 = new Image(FROG_DOWN, imgSize, imgSize, true, true);
-        imgD1 = new Image(FROG_RIGHT, imgSize, imgSize, true, true);
-        imgW2 = new Image(FROG_UP_JUMP, imgSize, imgSize, true, true);
-        imgA2 = new Image(FROG_LEFT_JUMP, imgSize, imgSize, true, true);
-        imgS2 = new Image(FROG_DOWN_JUMP, imgSize, imgSize, true, true);
-        imgD2 = new Image(FROG_RIGHT_JUMP, imgSize, imgSize, true, true);
+        imgW1 = new Image(Animal.FROG_UP, imgSize, imgSize, true, true);
+        imgA1 = new Image(Animal.FROG_LEFT, imgSize, imgSize, true, true);
+        imgS1 = new Image(Animal.FROG_DOWN, imgSize, imgSize, true, true);
+        imgD1 = new Image(Animal.FROG_RIGHT, imgSize, imgSize, true, true);
+        imgW2 = new Image(Animal.FROG_UP_JUMP, imgSize, imgSize, true, true);
+        imgA2 = new Image(Animal.FROG_LEFT_JUMP, imgSize, imgSize, true, true);
+        imgS2 = new Image(Animal.FROG_DOWN_JUMP, imgSize, imgSize, true, true);
+        imgD2 = new Image(Animal.FROG_RIGHT_JUMP, imgSize, imgSize, true, true);
     }
 
-    // AnimalController
     public void onKeyPress(KeyEvent event) {
         if(!(animal.getState() == State.alive)) {}
         else {
@@ -68,7 +59,6 @@ public class AnimalController {
         }
     }
 
-    // AnimalController
     public void onKeyRelease(KeyEvent event) {
         if(!(animal.getState() == State.alive)) {}
         else {
@@ -97,15 +87,13 @@ public class AnimalController {
         }
     }
 
-    // Controller updating AnimalModel
     public void respawn() {
         animal.setState(State.alive);
-        animal.setImage(new Image("file:src/main/resources/imgs/player/action/froggerUp.png", imgSize, imgSize, true, true));
+        animal.setImage(new Image(Animal.FROG_UP, imgSize, imgSize, true, true));
         animal.setX(300);
-        animal.setY(679.8+movementY);
+        animal.setY(LevelSetup.rowToY(2));
     }
 
-    // AnimalController
     public void handleBoundary() {
         if (animal.getY()<0 || animal.getY()>734) {
             respawn();
@@ -113,12 +101,11 @@ public class AnimalController {
         if (animal.getX()<0) {
             animal.move(movementX, 0);
         }
-        if (animal.getX()>600) {
+        if (animal.getX()>575) {
             animal.move(-movementX, 0);
         }
     }
 
-    // AnimalController
     public void updateDeathState() {
         // Check death
         if (!(animal.getIntersectingObjects(Obstacle.class).isEmpty())) {
