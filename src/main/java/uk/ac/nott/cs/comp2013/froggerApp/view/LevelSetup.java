@@ -51,11 +51,10 @@ public class LevelSetup {
     }
 
     public static void createEndPoints(World world) {
-        world.add(new End(13,96));
-        world.add(new End(141,96));
-        world.add(new End(141 + 141-13,96));
-        world.add(new End(141 + 141-13+141-13+1,96));
-        world.add(new End(141 + 141-13+141-13+141-13+3,96));
+        int ypos = 96, initialX = 13, gap = 128;
+        for (int i = 0; i < 5; i++) {
+            world.add(new End(initialX + i * gap, ypos));
+        }
     }
 
     public static void createLogs(World world) {
