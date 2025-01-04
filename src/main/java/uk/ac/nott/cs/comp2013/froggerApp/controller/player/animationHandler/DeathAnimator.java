@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.comp2013.froggerApp.controller.player.animation;
+package uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler;
 
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 

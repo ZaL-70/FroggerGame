@@ -33,6 +33,13 @@ public class Animal extends Actor {
 	public static final String FROG_LEFT_JUMP = "file:src/main/resources/imgs/player/action/froggerLeftJump.png";
 	public static final String FROG_RIGHT = "file:src/main/resources/imgs/player/action/froggerRight.png";
 	public static final String FROG_RIGHT_JUMP = "file:src/main/resources/imgs/player/action/froggerRightJump.png";
+	public static final String CAR_DEATH1 = "file:src/main/resources/imgs/player/death/cardeath1.png";
+	public static final String CAR_DEATH2 = "file:src/main/resources/imgs/player/death/cardeath2.png";
+	public static final String CAR_DEATH3 = "file:src/main/resources/imgs/player/death/cardeath3.png";
+	public static final String WATER_DEATH1 = "file:src/main/resources/imgs/player/death/waterdeath1.png";
+	public static final String WATER_DEATH2 = "file:src/main/resources/imgs/player/death/waterdeath2.png";
+	public static final String WATER_DEATH3 = "file:src/main/resources/imgs/player/death/waterdeath3.png";
+	public static final String WATER_DEATH4 = "file:src/main/resources/imgs/player/death/waterdeath4.png";
 	public static final int FROG_SIZE = 40;
 	public static Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
 

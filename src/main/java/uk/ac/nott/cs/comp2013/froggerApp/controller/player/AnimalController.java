@@ -1,20 +1,21 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller.player;
 
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.CarDeathAnimator;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.DeathAnimator;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.HomeTakenAnimator;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.WaterDeathAnimator;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.deathChecker.CollisionChecker;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.deathChecker.DeathChecker;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.deathChecker.DrowningChecker;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.deathChecker.TakenHomeChecker;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler.ObjectInteractionHandler;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
-import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.FROG_SIZE;
 import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.State;
 
 /**
@@ -22,10 +23,14 @@ import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.State
  */
 public class AnimalController {
     Animal animal;
-    int deathTime = 0;
-    List<End> inter = new ArrayList<End>();
+    List<DeathChecker> deathCheckers;
+    List<ObjectInteractionHandler> interactionHandlers;
+    List<DeathAnimator> deathAnimators;
 
     public AnimalController(Animal animal) {
+        deathCheckers = List.of(new CollisionChecker(), new DrowningChecker(), new TakenHomeChecker());
+        interactionHandlers = List.of(new LogInteraction(), new TurtleInteraction(), new WetTurtleInteraction(), new EndInteraction());
+        deathAnimators = List.of(new HomeTakenAnimator(), new WaterDeathAnimator(), new CarDeathAnimator());
         this.animal = animal;
     }
 
@@ -94,84 +99,20 @@ public class AnimalController {
     }
 
     public void updateDeathState() {
-        // Check car death
-        if (!(animal.getIntersectingObjects(Obstacle.class).isEmpty())) {
-            animal.setState(State.carDeath);
-        }
-        // Check water by turtle death
-        if (!(animal.getIntersectingObjects(WetTurtle.class).isEmpty())) {
-            if (animal.getIntersectingObjects(WetTurtle.class).getFirst().isSunk()) {
-                animal.setState(State.waterDeath);
-            }
-        }
-        // Check water death
-        if (animal.getY() < 413) {
-            if (!animal.getOnObstacle()) {
-                animal.setState(State.waterDeath);
-            }
-        }
-        // Check end point taken death
-        if (!(animal.getIntersectingObjects(End.class).isEmpty()) && !animal.getOnObstacle()) {
-            inter = animal.getIntersectingObjects(End.class);
-            if (animal.getIntersectingObjects(End.class).getFirst().isActivated()) {
-                animal.setState(State.endDeath);
-            }
+        for (DeathChecker obj : deathCheckers) {
+            obj.check(animal);
         }
     }
 
     public void handleActorInteraction() {
-        List<ObjectInteractionHandler> interactions = List.of(new LogInteraction(), new TurtleInteraction(), new WetTurtleInteraction(), new EndInteraction());
-        for (ObjectInteractionHandler obj : interactions) {
+        for (ObjectInteractionHandler obj : interactionHandlers) {
             obj.interact(animal);
         }
     }
 
-    // Animation, animate in a view class by updating actor image
     public void handleDeath(long now) {
-        if (animal.getState() == State.carDeath) {
-            if (now % 11 == 0) {
-                deathTime++;
-            }
-            if (deathTime == 1) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath1.png", FROG_SIZE, FROG_SIZE, true, true));
-            }
-            if (deathTime == 2) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath2.png", FROG_SIZE, FROG_SIZE, true, true));
-            }
-            if (deathTime == 3) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath3.png", FROG_SIZE, FROG_SIZE, true, true));
-            }
-            if (deathTime == 4) {
-                animal.respawn();
-                deathTime = 0;
-                if (animal.getPoints() > 50) {
-                    animal.changeScore(-50, true);
-                }
-            }
-        }
-        if (animal.getState() == State.waterDeath || animal.getState() == State.endDeath) {
-            if (now % 11 == 0) {
-                deathTime++;
-            }
-            if (deathTime == 1) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath1.png", FROG_SIZE, FROG_SIZE, true, true));
-            }
-            if (deathTime == 2) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath2.png", FROG_SIZE, FROG_SIZE, true, true));
-            }
-            if (deathTime == 3) {
-                animal.setImage(new Image("file:src/main/resources/player/death/waterdeath3.png", FROG_SIZE, FROG_SIZE, true, true));
-            }
-            if (deathTime == 4) {
-                animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath4.png", FROG_SIZE, FROG_SIZE, true, true));
-            }
-            if (deathTime == 5) {
-                animal.respawn();
-                deathTime = 0;
-                if (animal.getPoints() > 50) {
-                    animal.changeScore(-50, true);
-                }
-            }
+        for (DeathAnimator obj : deathAnimators) {
+            obj.animate(animal, now);
         }
     }
 }
