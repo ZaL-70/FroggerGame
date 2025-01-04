@@ -1,9 +1,9 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors.level.factories;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
 
-import static uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup.rowToY;
+import static uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup.rowToY;
 
 public class ObstacleFactory {
     public static Obstacle createObstacle(String imageLink, int size, int xpos, int row, int speed) {

@@ -1,15 +1,10 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors.level;
+package uk.ac.nott.cs.comp2013.froggerApp.view.level;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameObject;
 
-public class Digit extends Actor {
+public class Digit extends GameObject {
 	Image imgDigit;
-
-	@Override
-	public void act(long now) {
-		// TODO Auto-generated method stub
-	}
 	
 	public Digit(int n, int size, int xpos, int ypos) {
 		imgDigit = new Image("file:src/main/resources/imgs/info/"+n+".png", size, size, true, true);

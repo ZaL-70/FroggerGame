@@ -3,15 +3,19 @@ package uk.ac.nott.cs.comp2013.froggerApp.controller.player;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.*;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup;
+import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal.FROG_SIZE;
-import static uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal.State;
+import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.FROG_SIZE;
+import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.State;
 
 /**
  * This class separates the behaviors & animations for the Animal Actor into a controller class

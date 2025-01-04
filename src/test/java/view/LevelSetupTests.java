@@ -2,9 +2,13 @@ package view;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.*;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup;
+import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 

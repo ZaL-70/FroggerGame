@@ -5,13 +5,13 @@ import javafx.scene.input.KeyEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.End;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Obstacle;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.WetTurtle;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
-import uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 import java.util.List;
 

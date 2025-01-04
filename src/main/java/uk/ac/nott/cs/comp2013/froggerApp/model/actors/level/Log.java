@@ -1,6 +1,6 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors.level;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.level;
 
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 
 public class Log extends Actor {
 	private double speed;

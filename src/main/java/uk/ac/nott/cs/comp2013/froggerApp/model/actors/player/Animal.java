@@ -1,12 +1,12 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors.player;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.player;
 
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.*;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
 
 public class Animal extends Actor {

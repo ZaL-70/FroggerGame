@@ -1,15 +1,9 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors.level;
+package uk.ac.nott.cs.comp2013.froggerApp.model;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
 
-public class End extends Actor {
+public class End extends GameObject {
 	boolean activated = false;
-
-	@Override
-	public void act(long now) {
-		// TODO Auto-generated method stub
-	}
 	
 	public End(int x, int y) {
 		setX(x);

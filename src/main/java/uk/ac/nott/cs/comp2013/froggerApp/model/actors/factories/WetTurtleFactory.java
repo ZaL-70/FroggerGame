@@ -1,10 +1,10 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors.level.factories;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 
-import static uk.ac.nott.cs.comp2013.froggerApp.view.LevelSetup.rowToY;
+import static uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup.rowToY;
 
 public class WetTurtleFactory {
     public static WetTurtle createWetTurtle(int size, int xpos, int row, int speed) {

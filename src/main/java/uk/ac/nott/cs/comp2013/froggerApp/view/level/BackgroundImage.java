@@ -1,7 +1,7 @@
-package uk.ac.nott.cs.comp2013.froggerApp.view;
+package uk.ac.nott.cs.comp2013.froggerApp.view.level;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 
 public class BackgroundImage extends Actor {
 
