@@ -1,7 +1,7 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.actors.level;
+package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
 
 public class Turtle extends Actor {
 	public static final String TURTLE_ANIMATION1 = "file:src/main/resources/imgs/obstacle/TurtleAnimation1.png";

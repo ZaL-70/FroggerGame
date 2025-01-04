@@ -1,6 +1,6 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.actors.level;
+package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level;
 
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
 
 public class Obstacle extends Actor {
 	private double speed;

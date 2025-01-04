@@ -3,26 +3,25 @@ package uk.ac.nott.cs.comp2013.froggerApp.controller.player;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import uk.ac.nott.cs.comp2013.froggerApp.model.End;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.FROG_SIZE;
-import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.State;
+import static uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal.FROG_SIZE;
+import static uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal.State;
 
 /**
  * This class separates the behaviors & animations for the Animal Actor into a controller class
  */
 public class AnimalController {
     Animal animal;
-    double movementY = LevelSetup.ROW_HEIGHT / 2, movementX = 10.666666*2, maxHeight = LevelSetup.BOARD_HEIGHT;
     int deathTime = 0;
     List<End> inter = new ArrayList<End>();
 
@@ -35,19 +34,19 @@ public class AnimalController {
         else {
             switch (event.getCode()) {
                 case KeyCode.W:
-                    animal.move(0, -movementY);
+                    animal.move(0, -Animal.MOVEMENT_Y);
                     animal.setImage(Animal.imgW2);
                     break;
                 case KeyCode.A:
-                    animal.move(-movementX, 0);
+                    animal.move(-Animal.MOVEMENT_X, 0);
                     animal.setImage(Animal.imgA2);
                     break;
                 case KeyCode.S:
-                    animal.move(0, movementY);
+                    animal.move(0, Animal.MOVEMENT_Y);
                     animal.setImage(Animal.imgS2);
                     break;
                 case KeyCode.D:
-                    animal.move(movementX, 0);
+                    animal.move(Animal.MOVEMENT_X, 0);
                     animal.setImage(Animal.imgD2);
                     break;
             }
@@ -59,23 +58,23 @@ public class AnimalController {
         else {
             switch (event.getCode()) {
                 case KeyCode.W:
-                    if (animal.getY() < maxHeight) {
+                    if (animal.getY() < Animal.MAX_HEIGHT) {
                         animal.changeScore(10, true);
-                        maxHeight = animal.getY();
+                        Animal.MAX_HEIGHT = animal.getY();
                     }
-                    animal.move(0, -movementY);
+                    animal.move(0, -Animal.MOVEMENT_Y);
                     animal.setImage(Animal.imgW1);
                     break;
                 case KeyCode.A:
-                    animal.move(-movementX, 0);
+                    animal.move(-Animal.MOVEMENT_X, 0);
                     animal.setImage(Animal.imgA1);
                     break;
                 case KeyCode.S:
-                    animal.move(0, movementY);
+                    animal.move(0, Animal.MOVEMENT_Y);
                     animal.setImage(Animal.imgS1);
                     break;
                 case KeyCode.D:
-                    animal.move(movementX, 0);
+                    animal.move(Animal.MOVEMENT_X, 0);
                     animal.setImage(Animal.imgD1);
                     break;
             }
@@ -94,10 +93,10 @@ public class AnimalController {
             respawn();
         }
         if (animal.getX()<0) {
-            animal.move(movementX, 0);
+            animal.move(Animal.MOVEMENT_X, 0);
         }
         if (animal.getX()>575) {
-            animal.move(-movementX, 0);
+            animal.move(-Animal.MOVEMENT_X, 0);
         }
     }
 
@@ -148,7 +147,7 @@ public class AnimalController {
             if (!animal.getIntersectingObjects(End.class).getFirst().isActivated()) {
                 animal.changeScore(50, true);
                 animal.incrementStop();
-                maxHeight = LevelSetup.BOARD_HEIGHT;
+                Animal.MAX_HEIGHT = LevelSetup.BOARD_HEIGHT;
                 animal.getIntersectingObjects(End.class).getFirst().setEnd();
                 respawn();
             }

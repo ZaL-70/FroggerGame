@@ -1,13 +1,14 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.actors.player;
+package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player;
 
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 public class Animal extends Actor {
 	public enum State {
@@ -17,8 +18,9 @@ public class Animal extends Actor {
 		endDeath
 	}
 
-	int points = 0;
-	int end = 0;
+	int points = 0, end = 0;
+	public static final double MOVEMENT_Y = LevelSetup.ROW_HEIGHT / 2, MOVEMENT_X = 10.666666*2;
+	public static double MAX_HEIGHT = LevelSetup.BOARD_HEIGHT;
 	boolean scoreChanged = false;
 	State deathState;
 	AnimalController animalController;

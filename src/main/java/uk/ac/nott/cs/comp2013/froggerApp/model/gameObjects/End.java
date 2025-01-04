@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model;
+package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects;
 
 import javafx.scene.image.Image;
 

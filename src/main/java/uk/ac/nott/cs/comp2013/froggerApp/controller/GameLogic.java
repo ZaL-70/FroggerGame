@@ -1,7 +1,7 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
 import javafx.scene.control.Alert;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.Digit;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 

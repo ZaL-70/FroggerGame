@@ -1,6 +1,6 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model;
+package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects;
 
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
 import javafx.scene.image.ImageView;
 import java.util.ArrayList;
