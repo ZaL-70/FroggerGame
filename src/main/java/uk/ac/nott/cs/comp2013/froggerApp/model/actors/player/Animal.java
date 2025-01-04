@@ -1,12 +1,12 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.player;
 
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
@@ -39,19 +39,26 @@ public class Animal extends Actor {
 	// Animal (actor/entity) constructor adds behavior via a controller
 	public Animal(String imageLink) {
 		setImage(new Image(imageLink));
-		imgW1 = new Image(Animal.FROG_UP, FROG_SIZE, FROG_SIZE, true, true);
-		imgA1 = new Image(Animal.FROG_LEFT, FROG_SIZE, FROG_SIZE, true, true);
-		imgS1 = new Image(Animal.FROG_DOWN, FROG_SIZE, FROG_SIZE, true, true);
-		imgD1 = new Image(Animal.FROG_RIGHT, FROG_SIZE, FROG_SIZE, true, true);
-		imgW2 = new Image(Animal.FROG_UP_JUMP, FROG_SIZE, FROG_SIZE, true, true);
-		imgA2 = new Image(Animal.FROG_LEFT_JUMP, FROG_SIZE, FROG_SIZE, true, true);
-		imgS2 = new Image(Animal.FROG_DOWN_JUMP, FROG_SIZE, FROG_SIZE, true, true);
-		imgD2 = new Image(Animal.FROG_RIGHT_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+		imgW1 = new Image(FROG_UP, FROG_SIZE, FROG_SIZE, true, true);
+		imgA1 = new Image(FROG_LEFT, FROG_SIZE, FROG_SIZE, true, true);
+		imgS1 = new Image(FROG_DOWN, FROG_SIZE, FROG_SIZE, true, true);
+		imgD1 = new Image(FROG_RIGHT, FROG_SIZE, FROG_SIZE, true, true);
+		imgW2 = new Image(FROG_UP_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+		imgA2 = new Image(FROG_LEFT_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+		imgS2 = new Image(FROG_DOWN_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+		imgD2 = new Image(FROG_RIGHT_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+	}
+
+	public void respawn() {
+		setState(State.alive);
+		setImage(new Image(Animal.FROG_UP, FROG_SIZE, FROG_SIZE, true, true));
+		setX(300);
+		setY(LevelSetup.rowToY(2));
 	}
 
 	public void initialise(AnimalController animalController) {
 		this.animalController = animalController;
-		animalController.respawn();
+		respawn();
 
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {

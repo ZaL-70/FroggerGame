@@ -1,7 +1,7 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.level;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 
 public class WetTurtle extends Actor {
 	public static final String TURTLE_WET_ANIMATION1 = "file:src/main/resources/imgs/obstacle/TurtleAnimation2Wet.png";
@@ -52,6 +52,10 @@ public class WetTurtle extends Actor {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public double getSpeed() {
+		return speed;
 	}
 
 }

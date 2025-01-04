@@ -1,8 +1,8 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 
 import static uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup.rowToY;
 

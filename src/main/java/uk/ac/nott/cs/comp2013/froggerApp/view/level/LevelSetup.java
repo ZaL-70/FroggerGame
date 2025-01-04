@@ -1,11 +1,11 @@
 package uk.ac.nott.cs.comp2013.froggerApp.view.level;
 
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.LogFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.ObstacleFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.TurtleFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.WetTurtleFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories.LogFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories.ObstacleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories.TurtleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories.WetTurtleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
 

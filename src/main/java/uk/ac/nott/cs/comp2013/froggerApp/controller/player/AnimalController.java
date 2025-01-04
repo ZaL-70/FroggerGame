@@ -3,19 +3,19 @@ package uk.ac.nott.cs.comp2013.froggerApp.controller.player;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Obstacle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler.ObjectInteractionHandler;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal.FROG_SIZE;
-import static uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal.State;
+import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.FROG_SIZE;
+import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.State;
 
 /**
  * This class separates the behaviors & animations for the Animal Actor into a controller class
@@ -81,16 +81,9 @@ public class AnimalController {
         }
     }
 
-    public void respawn() {
-        animal.setState(State.alive);
-        animal.setImage(new Image(Animal.FROG_UP, FROG_SIZE, FROG_SIZE, true, true));
-        animal.setX(300);
-        animal.setY(LevelSetup.rowToY(2));
-    }
-
     public void handleBoundary() {
         if (animal.getY()<0 || animal.getY()>734) {
-            respawn();
+            animal.respawn();
         }
         if (animal.getX()<0) {
             animal.move(Animal.MOVEMENT_X, 0);
@@ -127,30 +120,9 @@ public class AnimalController {
     }
 
     public void handleActorInteraction() {
-        if (!(animal.getIntersectingObjects(Log.class).isEmpty()) && animal.getState() == State.alive) {
-            if(animal.getIntersectingObjects(Log.class).getFirst().getLeft())
-                animal.move(-2,0);
-            else
-                animal.move(.75,0);
-        }
-        if (!(animal.getIntersectingObjects(Turtle.class).isEmpty()) && animal.getState() == State.alive) {
-            animal.move(-1,0);
-        }
-        if (!(animal.getIntersectingObjects(WetTurtle.class).isEmpty())) {
-            if (!(animal.getIntersectingObjects(WetTurtle.class).getFirst().isSunk())) {
-                animal.move(-1,0);
-            }
-        }
-        // Check end point interaction
-        if (!(animal.getIntersectingObjects(End.class).isEmpty()) && !animal.getOnObstacle()) {
-           inter = animal.getIntersectingObjects(End.class);
-            if (!animal.getIntersectingObjects(End.class).getFirst().isActivated()) {
-                animal.changeScore(50, true);
-                animal.incrementStop();
-                Animal.MAX_HEIGHT = LevelSetup.BOARD_HEIGHT;
-                animal.getIntersectingObjects(End.class).getFirst().setEnd();
-                respawn();
-            }
+        List<ObjectInteractionHandler> interactions = List.of(new LogInteraction(), new TurtleInteraction(), new WetTurtleInteraction(), new EndInteraction());
+        for (ObjectInteractionHandler obj : interactions) {
+            obj.interact(animal);
         }
     }
 
@@ -170,7 +142,7 @@ public class AnimalController {
                 animal.setImage(new Image("file:src/main/resources/imgs/player/death/cardeath3.png", FROG_SIZE, FROG_SIZE, true, true));
             }
             if (deathTime == 4) {
-                respawn();
+                animal.respawn();
                 deathTime = 0;
                 if (animal.getPoints() > 50) {
                     animal.changeScore(-50, true);
@@ -194,7 +166,7 @@ public class AnimalController {
                 animal.setImage(new Image("file:src/main/resources/imgs/player/death/waterdeath4.png", FROG_SIZE, FROG_SIZE, true, true));
             }
             if (deathTime == 5) {
-                respawn();
+                animal.respawn();
                 deathTime = 0;
                 if (animal.getPoints() > 50) {
                     animal.changeScore(-50, true);
