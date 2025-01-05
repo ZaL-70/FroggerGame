@@ -1,6 +1,6 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.level;
 
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 
 public class Obstacle extends Actor {
 	private double speed;
@@ -16,6 +16,10 @@ public class Obstacle extends Actor {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public double getSpeed() {
+		return speed;
 	}
 
 }

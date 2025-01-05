@@ -1,6 +1,6 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors;
 
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.GameObject;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameObject;
 
 public abstract class Actor extends GameObject {
 

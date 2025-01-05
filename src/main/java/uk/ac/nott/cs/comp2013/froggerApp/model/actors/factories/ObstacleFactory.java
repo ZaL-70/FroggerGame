@@ -1,7 +1,7 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
 
 import static uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup.rowToY;
 
