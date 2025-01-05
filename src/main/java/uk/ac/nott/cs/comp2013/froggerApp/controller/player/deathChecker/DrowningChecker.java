@@ -14,7 +14,7 @@ public class DrowningChecker implements DeathChecker {
                 animal.setState(Animal.State.waterDeath);
             }
         }
-        // Check water death
+        // Check water death (refactor to use GameConfig bound)
         if (animal.getY() < 413) {
             if (!animal.getOnObstacle()) {
                 animal.setState(Animal.State.waterDeath);

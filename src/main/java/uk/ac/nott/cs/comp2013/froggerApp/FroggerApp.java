@@ -3,6 +3,7 @@ package uk.ac.nott.cs.comp2013.froggerApp;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.*;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
@@ -27,11 +28,11 @@ public class FroggerApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// Instantiate Level creator & player
 		setupLevel = new LevelSetup();
-		animal = new Animal(Animal.FROG_UP);
+		animal = new Animal(PlayerConfig.IMAGE_PATHS.get("up"));
 		animalController = new AnimalController(animal);
 		// Create main game level & add to scene
 		world = setupLevel.createLevel1(animal);
-		scene = new Scene(world, LevelSetup.BOARD_WIDTH,LevelSetup.BOARD_HEIGHT);
+		scene = new Scene(world, BoardConfig.WIDTH,BoardConfig.HEIGHT);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		// Instantiate & activate game controller's & loop & logic handlers

@@ -1,5 +1,6 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler;
 
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 
@@ -10,7 +11,7 @@ public class WetTurtleInteraction implements ObjectInteractionHandler {
         if (!wetTurtles.isEmpty()) {
             WetTurtle wetTurtle = wetTurtles.get(0);
             if (!(wetTurtle.isSunk())) {
-                animal.move(-1,0);
+                animal.move(-TurtleConfig.SPEED_MEDIUM,0);
             }
         }
     }

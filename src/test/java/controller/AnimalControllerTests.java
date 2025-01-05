@@ -6,13 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
-import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class AnimalControllerTests extends ApplicationTest {
         KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W, false, false, false, false);
         controller.onKeyPress(keyEvent);
 
-        verify(mockAnimal).move(0, -LevelSetup.ROW_HEIGHT / 2);
+        verify(mockAnimal).move(0, -BoardConfig.ROW_HEIGHT / 2);
         verify(mockAnimal).setImage(any()); // Image for jumping upward
     }
 

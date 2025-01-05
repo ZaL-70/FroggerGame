@@ -1,5 +1,6 @@
 package uk.ac.nott.cs.comp2013.froggerApp.model.actors.level;
 
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 
 public class Obstacle extends Actor {
@@ -7,11 +8,11 @@ public class Obstacle extends Actor {
 
 	@Override
 	public void act(long now) {
-		move(speed , 0);
-		if (getX() > 600 && speed>0)
-			setX(-200);
-		if (getX() < -50 && speed<0)
-			setX(600);
+		move(speed,0);
+		if (getX() > BoardConfig.WIDTH && speed > 0)
+			setX(0 - getWidth());
+		if (getX() < (0 - getWidth()) && speed < 0)
+			setX(BoardConfig.WIDTH);
 	}
 
 	public void setSpeed(double speed) {

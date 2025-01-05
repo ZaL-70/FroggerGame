@@ -12,6 +12,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.controller.player.deathChecker.Drowning
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.deathChecker.TakenHomeChecker;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler.ObjectInteractionHandler;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 
 import java.util.List;
@@ -39,19 +40,19 @@ public class AnimalController {
         else {
             switch (event.getCode()) {
                 case KeyCode.W:
-                    animal.move(0, -Animal.MOVEMENT_Y);
+                    animal.move(0, -PlayerConfig.MOVEMENT_Y);
                     animal.setImage(Animal.imgW2);
                     break;
                 case KeyCode.A:
-                    animal.move(-Animal.MOVEMENT_X, 0);
+                    animal.move(-PlayerConfig.MOVEMENT_X, 0);
                     animal.setImage(Animal.imgA2);
                     break;
                 case KeyCode.S:
-                    animal.move(0, Animal.MOVEMENT_Y);
+                    animal.move(0, PlayerConfig.MOVEMENT_Y);
                     animal.setImage(Animal.imgS2);
                     break;
                 case KeyCode.D:
-                    animal.move(Animal.MOVEMENT_X, 0);
+                    animal.move(PlayerConfig.MOVEMENT_X, 0);
                     animal.setImage(Animal.imgD2);
                     break;
             }
@@ -63,23 +64,23 @@ public class AnimalController {
         else {
             switch (event.getCode()) {
                 case KeyCode.W:
-                    if (animal.getY() < Animal.MAX_HEIGHT) {
+                    if (animal.getY() < animal.getMaxHeight()) {
                         animal.changeScore(10, true);
-                        Animal.MAX_HEIGHT = animal.getY();
+                        animal.setMaxHeight(animal.getY());
                     }
-                    animal.move(0, -Animal.MOVEMENT_Y);
+                    animal.move(0, -PlayerConfig.MOVEMENT_Y);
                     animal.setImage(Animal.imgW1);
                     break;
                 case KeyCode.A:
-                    animal.move(-Animal.MOVEMENT_X, 0);
+                    animal.move(-PlayerConfig.MOVEMENT_X, 0);
                     animal.setImage(Animal.imgA1);
                     break;
                 case KeyCode.S:
-                    animal.move(0, Animal.MOVEMENT_Y);
+                    animal.move(0, PlayerConfig.MOVEMENT_Y);
                     animal.setImage(Animal.imgS1);
                     break;
                 case KeyCode.D:
-                    animal.move(Animal.MOVEMENT_X, 0);
+                    animal.move(PlayerConfig.MOVEMENT_X, 0);
                     animal.setImage(Animal.imgD1);
                     break;
             }
@@ -87,14 +88,14 @@ public class AnimalController {
     }
 
     public void handleBoundary() {
-        if (animal.getY()<0 || animal.getY()>734) {
+        if (animal.getY() < BoardConfig.UPPER_BOUNDARY || animal.getY() > BoardConfig.LOWER_BOUNDARY) {
             animal.respawn();
         }
-        if (animal.getX()<0) {
-            animal.move(Animal.MOVEMENT_X, 0);
+        if (animal.getX() < BoardConfig.LEFT_BOUNDARY) {
+            animal.move(PlayerConfig.MOVEMENT_X, 0);
         }
-        if (animal.getX()>575) {
-            animal.move(-Animal.MOVEMENT_X, 0);
+        if (animal.getX() > BoardConfig.RIGHT_BOUNDARY) {
+            animal.move(-PlayerConfig.MOVEMENT_X, 0);
         }
     }
 

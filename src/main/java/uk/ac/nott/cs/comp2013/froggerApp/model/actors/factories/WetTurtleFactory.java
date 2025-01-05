@@ -1,22 +1,20 @@
 package uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 
-import static uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup.rowToY;
-
 public class WetTurtleFactory {
-    public static WetTurtle createWetTurtle(int size, int xpos, int row, int speed) {
+    public static WetTurtle createWetTurtle(int size, int xpos, int row, double speed) {
         WetTurtle wetTurtle = new WetTurtle();
         wetTurtle.setTurtleImages(
-                new Image(Turtle.TURTLE_ANIMATION1, size, size,true,true),
-                new Image(WetTurtle.TURTLE_WET_ANIMATION1, size, size,true,true),
-                new Image(WetTurtle.TURTLE_WET_ANIMATION2, size, size,true,true),
-                new Image(WetTurtle.TURTLE_WET_ANIMATION3, size, size,true,true)
+                new Image(TurtleConfig.IMAGE_PATHS.get("animation1"), size, size,true,true),
+                new Image(TurtleConfig.IMAGE_PATHS.get("wetAnimation1"), size, size,true,true),
+                new Image(TurtleConfig.IMAGE_PATHS.get("wetAnimation2"), size, size,true,true),
+                new Image(TurtleConfig.IMAGE_PATHS.get("wetAnimation3"), size, size,true,true)
         );
         wetTurtle.setX(xpos);
-        wetTurtle.setY(rowToY(row) - 5);
+        wetTurtle.setY(BoardConfig.rowToY(row) - 5);
         wetTurtle.setSpeed(speed);
         return wetTurtle;
     }

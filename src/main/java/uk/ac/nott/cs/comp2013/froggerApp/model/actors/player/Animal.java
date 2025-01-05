@@ -3,12 +3,12 @@ package uk.ac.nott.cs.comp2013.froggerApp.model.actors.player;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
-import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 public class Animal extends Actor {
 	public enum State {
@@ -19,48 +19,30 @@ public class Animal extends Actor {
 	}
 
 	int points = 0, end = 0;
-	public static final double MOVEMENT_Y = LevelSetup.ROW_HEIGHT / 2, MOVEMENT_X = 10.666666*2;
-	public static double MAX_HEIGHT = LevelSetup.BOARD_HEIGHT;
+	double max_height = PlayerConfig.MAX_HEIGHT;
 	boolean scoreChanged = false;
 	State deathState;
 	AnimalController animalController;
-
-	public static final String FROG_UP = "file:src/main/resources/imgs/player/action/froggerUp.png";
-	public static final String FROG_UP_JUMP = "file:src/main/resources/imgs/player/action/froggerUpJump.png";
-	public static final String FROG_DOWN = "file:src/main/resources/imgs/player/action/froggerDown.png" ;
-	public static final String FROG_DOWN_JUMP = "file:src/main/resources/imgs/player/action/froggerDownJump.png";
-	public static final String FROG_LEFT = "file:src/main/resources/imgs/player/action/froggerLeft.png";
-	public static final String FROG_LEFT_JUMP = "file:src/main/resources/imgs/player/action/froggerLeftJump.png";
-	public static final String FROG_RIGHT = "file:src/main/resources/imgs/player/action/froggerRight.png";
-	public static final String FROG_RIGHT_JUMP = "file:src/main/resources/imgs/player/action/froggerRightJump.png";
-	public static final String CAR_DEATH1 = "file:src/main/resources/imgs/player/death/cardeath1.png";
-	public static final String CAR_DEATH2 = "file:src/main/resources/imgs/player/death/cardeath2.png";
-	public static final String CAR_DEATH3 = "file:src/main/resources/imgs/player/death/cardeath3.png";
-	public static final String WATER_DEATH1 = "file:src/main/resources/imgs/player/death/waterdeath1.png";
-	public static final String WATER_DEATH2 = "file:src/main/resources/imgs/player/death/waterdeath2.png";
-	public static final String WATER_DEATH3 = "file:src/main/resources/imgs/player/death/waterdeath3.png";
-	public static final String WATER_DEATH4 = "file:src/main/resources/imgs/player/death/waterdeath4.png";
-	public static final int FROG_SIZE = 40;
 	public static Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
 
 	// Animal (actor/entity) constructor adds behavior via a controller
 	public Animal(String imageLink) {
 		setImage(new Image(imageLink));
-		imgW1 = new Image(FROG_UP, FROG_SIZE, FROG_SIZE, true, true);
-		imgA1 = new Image(FROG_LEFT, FROG_SIZE, FROG_SIZE, true, true);
-		imgS1 = new Image(FROG_DOWN, FROG_SIZE, FROG_SIZE, true, true);
-		imgD1 = new Image(FROG_RIGHT, FROG_SIZE, FROG_SIZE, true, true);
-		imgW2 = new Image(FROG_UP_JUMP, FROG_SIZE, FROG_SIZE, true, true);
-		imgA2 = new Image(FROG_LEFT_JUMP, FROG_SIZE, FROG_SIZE, true, true);
-		imgS2 = new Image(FROG_DOWN_JUMP, FROG_SIZE, FROG_SIZE, true, true);
-		imgD2 = new Image(FROG_RIGHT_JUMP, FROG_SIZE, FROG_SIZE, true, true);
+		imgW1 = new Image(PlayerConfig.IMAGE_PATHS.get("up"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
+		imgA1 = new Image(PlayerConfig.IMAGE_PATHS.get("left"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
+		imgS1 = new Image(PlayerConfig.IMAGE_PATHS.get("down"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
+		imgD1 = new Image(PlayerConfig.IMAGE_PATHS.get("right"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
+		imgW2 = new Image(PlayerConfig.IMAGE_PATHS.get("upJump"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
+		imgA2 = new Image(PlayerConfig.IMAGE_PATHS.get("leftJump"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
+		imgS2 = new Image(PlayerConfig.IMAGE_PATHS.get("downJump"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
+		imgD2 = new Image(PlayerConfig.IMAGE_PATHS.get("rightJump"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
 	}
 
 	public void respawn() {
 		setState(State.alive);
-		setImage(new Image(Animal.FROG_UP, FROG_SIZE, FROG_SIZE, true, true));
-		setX(300);
-		setY(LevelSetup.rowToY(2));
+		setImage(new Image(PlayerConfig.IMAGE_PATHS.get("up"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true));
+		setX(PlayerConfig.RESPAWN_X);
+		setY(BoardConfig.rowToY(PlayerConfig.RESPAWN_ROW));
 	}
 
 	public void initialise(AnimalController animalController) {
@@ -82,13 +64,9 @@ public class Animal extends Actor {
 	// AnimalModel is Actor (will act via controller)
 	@Override
 	public void act(long now) {
-		// Handle boundary component
 		animalController.handleBoundary();
-		// Set death state
 		animalController.updateDeathState();
-		// Handle death
 		animalController.handleDeath(now);
-		// Handle interactions with other Actors
 		animalController.handleActorInteraction();
 	}
 
@@ -130,5 +108,13 @@ public class Animal extends Actor {
                 !getIntersectingObjects(Turtle.class).isEmpty() ||
                 (!getIntersectingObjects(WetTurtle.class).isEmpty() &&
                         !getIntersectingObjects(WetTurtle.class).get(0).isSunk());
+	}
+
+	public void setMaxHeight(double height) {
+		this.max_height = height;
+	}
+
+	public double getMaxHeight() {
+		return max_height;
 	}
 }

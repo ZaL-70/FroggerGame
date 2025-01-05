@@ -1,13 +1,10 @@
 package uk.ac.nott.cs.comp2013.froggerApp.model.actors.level;
 
 import javafx.scene.image.Image;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 
 public class Turtle extends Actor {
-	public static final String TURTLE_ANIMATION1 = "file:src/main/resources/imgs/obstacle/TurtleAnimation1.png";
-	public static final String TURTLE_ANIMATION2 = "file:src/main/resources/imgs/obstacle/TurtleAnimation2.png";
-	public static final String TURTLE_ANIMATION3 = "file:src/main/resources/imgs/obstacle/TurtleAnimation3.png";
-
 	Image turtle1, turtle2, turtle3;
 	private double speed;
 
@@ -23,10 +20,10 @@ public class Turtle extends Actor {
 			setImage(turtle3);
 		}
 		move(speed,0);
-		if (getX() > 600 && speed > 0)
-			setX(-200);
-		if (getX() < -75 && speed < 0)
-			setX(600);
+		if (getX() > BoardConfig.WIDTH && speed > 0)
+			setX(0 - getWidth());
+		if (getX() < (0 - getWidth()) && speed < 0)
+			setX(BoardConfig.WIDTH);
 	}
 
 	public void setTurtleImages(Image turtle1, Image turtle2, Image turtle3) {
