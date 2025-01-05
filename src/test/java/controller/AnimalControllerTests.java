@@ -5,11 +5,12 @@ import javafx.scene.input.KeyEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Obstacle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
@@ -29,26 +30,17 @@ public class AnimalControllerTests extends ApplicationTest {
     }
 
     @Test
-    void testRespawn() {
-        controller.respawn();
-        verify(mockAnimal).setState(Animal.State.alive);
-        verify(mockAnimal).setImage(any()); // Verify an image is set
-        verify(mockAnimal).setX(300);
-        verify(mockAnimal).setY(LevelSetup.rowToY(2));
-    }
-
-    @Test
     void testHandleBoundaryTop() {
         when(mockAnimal.getY()).thenReturn(-1.0);
         controller.handleBoundary();
-        verify(mockAnimal).setY(LevelSetup.rowToY(2));
+        verify(mockAnimal).respawn();
     }
 
     @Test
     void testHandleBoundaryBottom() {
         when(mockAnimal.getY()).thenReturn(735.0);
         controller.handleBoundary();
-        verify(mockAnimal).setY(LevelSetup.rowToY(2));
+        verify(mockAnimal).respawn();
     }
 
     @Test
@@ -127,6 +119,28 @@ public class AnimalControllerTests extends ApplicationTest {
         controller.handleActorInteraction();
 
         verify(mockAnimal).move(-2, 0); // Move left with the log
+    }
+
+    @Test
+    void testTurtleInteraction() {
+        Turtle mockTurtle = mock(Turtle.class);
+        when(mockAnimal.getIntersectingObjects(Turtle.class)).thenReturn(List.of(mockTurtle));
+        when(mockAnimal.getState()).thenReturn(Animal.State.alive); // Mock alive state
+
+        controller.handleActorInteraction();
+
+        verify(mockAnimal).move(-1, 0); // Move left with the turtle
+    }
+
+    @Test
+    void testWetTurtleInteraction() {
+        WetTurtle mockWetTurtle = mock(WetTurtle.class);
+        when(mockAnimal.getIntersectingObjects(WetTurtle.class)).thenReturn(List.of(mockWetTurtle));
+        when(mockAnimal.getIntersectingObjects(WetTurtle.class).getFirst().isSunk()).thenReturn(false);
+
+        controller.handleActorInteraction();
+
+        verify(mockAnimal).move(-1, 0); // Move left with the turtle
     }
 
     @Test

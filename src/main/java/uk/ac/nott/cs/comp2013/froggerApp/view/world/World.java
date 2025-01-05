@@ -6,8 +6,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.GameObject;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameObject;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 
 import java.util.ArrayList;
 import java.util.List;
