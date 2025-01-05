@@ -1,17 +1,17 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
 import javafx.animation.AnimationTimer;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class GameTimer {
     Animal animal;
-    MyStage background;
+    MyStage world;
     GameLogic logicHandler;
     public AnimationTimer timer;
 
-    public GameTimer(MyStage background, Animal animal, GameLogic logicHandler) {
-        this.background = background;
+    public GameTimer(MyStage world, Animal animal, GameLogic logicHandler) {
+        this.world = world;
         this.animal = animal;
         this.logicHandler = logicHandler;
     }

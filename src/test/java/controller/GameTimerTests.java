@@ -3,7 +3,7 @@ package controller;
 import javafx.animation.AnimationTimer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameTimer;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
