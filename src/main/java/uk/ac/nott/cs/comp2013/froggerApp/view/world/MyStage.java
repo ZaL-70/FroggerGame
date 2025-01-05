@@ -8,7 +8,7 @@ import java.io.File;
 public class MyStage extends World {
 	private static MyStage instance;
 	MediaPlayer mediaPlayer;
-	
+
 	private MyStage() {
         super();
         if (instance != null) {

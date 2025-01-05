@@ -1,19 +1,13 @@
-package uk.ac.nott.cs.comp2013.froggerApp.actors.level;
+package uk.ac.nott.cs.comp2013.froggerApp.model.actors.level;
 
 import javafx.scene.image.Image;
-import uk.ac.nott.cs.comp2013.froggerApp.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 
 public class WetTurtle extends Actor {
-	public static final String TURTLE_WET_ANIMATION1 = "file:src/main/resources/imgs/obstacle/TurtleAnimation2Wet.png";
-	public static final String TURTLE_WET_ANIMATION2 = "file:src/main/resources/imgs/obstacle/TurtleAnimation3Wet.png";
-	public static final String TURTLE_WET_ANIMATION3 = "file:src/main/resources/imgs/obstacle/TurtleAnimation4Wet.png";
+	Image turtle1, turtle2, turtle3, turtle4;
 
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
-	Image turtle4;
-
-	int speed;
+	double speed;
 	boolean sunk = false;
 
 	@Override
@@ -35,10 +29,10 @@ public class WetTurtle extends Actor {
 			sunk = true;
 		}
 		move(speed,0);
-		if (getX() > 600 && speed > 0)
-			setX(-200);
-		if (getX() < -75 && speed < 0)
-			setX(600);
+		if (getX() > BoardConfig.WIDTH && speed > 0)
+			setX(0 - getWidth());
+		if (getX() < (0 - getWidth()) && speed < 0)
+			setX(BoardConfig.WIDTH);
 	}
 
 	public boolean isSunk() {
@@ -53,7 +47,12 @@ public class WetTurtle extends Actor {
 		setImage(turtle2);
 	}
 
-	public void setSpeed(int speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
 }
