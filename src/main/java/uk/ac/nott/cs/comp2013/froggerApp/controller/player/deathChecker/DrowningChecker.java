@@ -1,7 +1,8 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller.player.deathChecker;
 
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 
 public class DrowningChecker implements DeathChecker {
     @Override
@@ -15,7 +16,7 @@ public class DrowningChecker implements DeathChecker {
             }
         }
         // Check water death (refactor to use GameConfig bound)
-        if (animal.getY() < 413) {
+        if (animal.getY() < BoardConfig.WATER_BOUND) {
             if (!animal.getOnObstacle()) {
                 animal.setState(Animal.State.waterDeath);
             }

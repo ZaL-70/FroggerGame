@@ -1,7 +1,7 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
 import javafx.animation.AnimationTimer;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class GameTimer {
@@ -22,6 +22,9 @@ public class GameTimer {
             public void handle(long now) {
                 if (animal.getScoreChanged()) {
                     logicHandler.setNumber(animal.getPoints());
+                }
+                if(animal.getLivesChanged()) {
+                    logicHandler.setLives();
                 }
                 if(logicHandler.handleGameEnd()) {
                     stopTimer();

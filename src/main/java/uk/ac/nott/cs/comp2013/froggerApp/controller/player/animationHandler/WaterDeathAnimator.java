@@ -2,7 +2,7 @@ package uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler;
 
 import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 
 public class WaterDeathAnimator implements DeathAnimator {
     int death_time = 0;
@@ -31,6 +31,7 @@ public class WaterDeathAnimator implements DeathAnimator {
                 if (animal.getPoints() > 50) {
                     animal.changeScore(-50, true);
                 }
+                animal.changeLives(-1,true);
             }
         }
     }
