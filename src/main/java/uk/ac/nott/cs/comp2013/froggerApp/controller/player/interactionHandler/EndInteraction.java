@@ -1,8 +1,8 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler;
 
-import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 
 public class EndInteraction implements ObjectInteractionHandler {
     @Override

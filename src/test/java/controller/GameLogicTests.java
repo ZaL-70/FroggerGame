@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.testfx.framework.junit5.ApplicationTest;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.Digit;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
@@ -40,7 +40,6 @@ public class GameLogicTests extends ApplicationTest {
         boolean ended = gameLogic.handleGameEnd();
         verify(mockBackground).stopMusic();
         verify(mockBackground).stop();
-        /* (+++ refactor to verify alert is shown) */
         assertTrue(ended);
     }
 

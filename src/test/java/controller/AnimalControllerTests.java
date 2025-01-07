@@ -4,17 +4,24 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.*;
 import org.testfx.framework.junit5.ApplicationTest;
-import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.CarDeathAnimator;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.DeathAnimator;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.HomeTakenAnimator;
+import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.WaterDeathAnimator;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -73,18 +80,18 @@ public class AnimalControllerTests extends ApplicationTest {
 
     @Test
     void testOnKeyPressMoveLeft() {
-        when(mockAnimal.getState())
-                .thenReturn(Animal.State.alive); // Mock alive state
+        when(mockAnimal.getState()).thenReturn(Animal.State.alive); // Mock alive state
         KeyEvent keyEvent = createKeyEvent(KeyCode.A);
         controller.onKeyPress(keyEvent);
-        verify(mockAnimal).move(
-                -PlayerConfig.MOVEMENT_X, 0);
+        verify(mockAnimal).move(-PlayerConfig.MOVEMENT_X, 0);
         verify(mockAnimal).setImage(any());
     }
 
-    @Test
-    void testNoMoveOnCarDeath() {
-        when(mockAnimal.getState()).thenReturn(Animal.State.carDeath); // Mock non-alive state
+    @ParameterizedTest
+    @EnumSource(value = Animal.State.class,
+            names = { "carDeath", "waterDeath", "endDeath"})
+    void testNoMoveOnDeath(Animal.State state) {
+        when(mockAnimal.getState()).thenReturn(state); // Mock non-alive state
         KeyEvent keyEvent = createKeyEvent(KeyCode.S);
         controller.onKeyPress(keyEvent);
         verify(mockAnimal).getState();
@@ -100,13 +107,43 @@ public class AnimalControllerTests extends ApplicationTest {
     }
 
     @Test
-    void testUpdateStateWaterDeath() {
+    void testUpdateStateWetTurtleDeath() {
         // Simulate interaction with WetTurtle
         WetTurtle mockWetTurtle = mock(WetTurtle.class);
         when(mockAnimal.getIntersectingObjects(WetTurtle.class)).thenReturn(List.of(mockWetTurtle));
         when(mockWetTurtle.isSunk()).thenReturn(true);
         controller.updateDeathState();
         verify(mockAnimal, atLeastOnce()).setState(Animal.State.waterDeath);
+    }
+
+    @Test
+    void testUpdateStateWaterDeath() {
+        when(mockAnimal.getY()).thenReturn(BoardConfig.WATER_BOUND-1);
+        when(mockAnimal.getOnObstacle()).thenReturn(false);
+        controller.updateDeathState();
+        verify(mockAnimal, atLeastOnce()).setState(Animal.State.waterDeath);
+    }
+
+    static Stream<Arguments> animatorProvider() {
+        return Stream.of(
+                Arguments.of(new WaterDeathAnimator(), Animal.State.waterDeath, -50, -1),
+                Arguments.of(new HomeTakenAnimator(), Animal.State.endDeath, -50, -1),
+                Arguments.of(new CarDeathAnimator(), Animal.State.carDeath, -50, -1)
+        );
+    }
+    @ParameterizedTest(name = "{1}")
+    @MethodSource("animatorProvider")
+    void testUpdateLivesAndScoreOnDeath(DeathAnimator animator, Animal.State state, int scoreChange, int lifeChange) {
+        // Arrange
+        when(mockAnimal.getState()).thenReturn(state);
+        when(mockAnimal.getPoints()).thenReturn(100);
+        // Act: Simulate death animation
+        for (long now = 0; now <= 55; now++) { // Iterate to trigger death_time == 5
+            animator.animate(mockAnimal, now);
+        }
+        // Assert lives & score adjusted
+        verify(mockAnimal, times(1)).changeScore(scoreChange, true);
+        verify(mockAnimal, times(1)).changeLives(lifeChange, true);
     }
 
     @Test
@@ -136,16 +173,6 @@ public class AnimalControllerTests extends ApplicationTest {
         when(mockAnimal.getIntersectingObjects(WetTurtle.class).getFirst().isSunk()).thenReturn(false);
         controller.handleActorInteraction();
         verify(mockAnimal).move(mockWetTurtle.getSpeed(), 0); // Move left with the turtle
-    }
-
-    @Test
-    void testWetTurtleDeath() {
-        WetTurtle mockWetTurtle = mock(WetTurtle.class);
-        when(mockAnimal.getIntersectingObjects(WetTurtle.class)).thenReturn(List.of(mockWetTurtle));
-        // Mock returning sunk turtle
-        when(mockAnimal.getIntersectingObjects(WetTurtle.class).getFirst().isSunk()).thenReturn(true);
-        controller.handleActorInteraction();
-        verify(mockAnimal, never()).move(any(Double.class), any(Double.class));
     }
 
     @Test

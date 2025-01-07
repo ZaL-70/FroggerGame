@@ -13,11 +13,11 @@ import uk.ac.nott.cs.comp2013.froggerApp.controller.player.deathChecker.TakenHom
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler.ObjectInteractionHandler;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.interactionHandler.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 
 import java.util.List;
 
-import static uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal.State;
+import static uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal.State;
 
 /**
  * This class separates the behaviors & animations for the Animal Actor into a controller class

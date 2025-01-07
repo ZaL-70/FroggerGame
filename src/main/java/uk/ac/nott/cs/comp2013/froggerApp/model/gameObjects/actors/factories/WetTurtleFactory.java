@@ -1,8 +1,8 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories;
+package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories;
 
 import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
 
 public class WetTurtleFactory {
     public static WetTurtle createWetTurtle(int size, int xpos, int row, double speed) {

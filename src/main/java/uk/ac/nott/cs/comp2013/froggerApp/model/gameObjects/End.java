@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model;
+package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects;
 
 import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
@@ -20,6 +20,5 @@ public class End extends GameObject {
 	public boolean isActivated() {
 		return activated;
 	}
-	
 
 }

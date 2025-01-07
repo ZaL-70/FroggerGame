@@ -1,13 +1,13 @@
-package uk.ac.nott.cs.comp2013.froggerApp.model.actors.player;
+package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player;
 
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
 
 public class Animal extends Actor {
@@ -18,9 +18,9 @@ public class Animal extends Actor {
 		endDeath
 	}
 
-	int points = 0, end = 0;
+	int points = 0, lives = LivesConfig.STARTING_LIVES, end = 0;
 	double max_height = PlayerConfig.MAX_HEIGHT;
-	boolean scoreChanged = false;
+	boolean scoreChanged = false, livesChanged = false;
 	State deathState;
 	AnimalController animalController;
 	public static Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
@@ -86,7 +86,7 @@ public class Animal extends Actor {
 	}
 
 	public boolean getStop() {
-		return end==5;
+		return end==5 || lives == 0;
 	}
 
 	public int getPoints() {
@@ -101,6 +101,23 @@ public class Animal extends Actor {
 	public boolean getScoreChanged() {
 		if (scoreChanged) {
 			scoreChanged = false;
+			return true;
+		}
+		return false;
+	}
+
+	public int getLives() {
+		return lives;
+	}
+
+	public void changeLives(int lives, boolean livesChanged) {
+		this.lives = this.lives + lives;
+		this.livesChanged = livesChanged;
+	}
+
+	public boolean getLivesChanged() {
+		if (livesChanged) {
+			livesChanged = false;
 			return true;
 		}
 		return false;
