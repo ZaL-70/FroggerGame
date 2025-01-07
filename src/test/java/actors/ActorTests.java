@@ -8,12 +8,14 @@ import uk.ac.nott.cs.comp2013.froggerApp.model.actors.Actor;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ActorTests {
+    private static final double OVERLAPPING_POSITION = 10;
+    private static final double BASE_POSITION = 0;
+    private static final double NON_OVERLAPPING_POSITION = 100;
 
     public class TestActor extends Actor {
         @Override
@@ -76,47 +78,34 @@ public class ActorTests {
         assertEquals(30, testActor.getHeight());
     }
 
-    // Test objects intersecting
-    /* Helper function for setting actor locations & mocking world behavior with actors
-    * Returns the actor being tested in the mock world */
-    private TestActor intersectingActorsHelper(TestActor testActor, double testActorX, double testActorY, double anotherActorX, double anotherActorY) {
-        testActor.setX(testActorX);
-        testActor.setY(testActorY);
-        TestActor anotherActor = spy(new TestActor());
-        anotherActor.setX(anotherActorX);
-        anotherActor.setY(anotherActorY);
-        // Mock the World to act as the Actor's parent
-        when(mockWorld.getObjects(TestActor.class)).thenReturn(Arrays.asList(anotherActor, testActor));
-        when(anotherActor.getWorld()).thenReturn(mockWorld);
-        return anotherActor;
+    private TestActor createActorAtPosition(double x, double y) {
+        TestActor actor = spy(new TestActor());
+        actor.setX(x);
+        actor.setY(y);
+        return actor;
     }
-    // Helper function to mock
+
+    private void mockWorldWithActors(TestActor... actors) {
+        when(mockWorld.getObjects(TestActor.class)).thenReturn(Arrays.asList(actors));
+        Arrays.stream(actors).forEach(actor -> when(actor.getWorld()).thenReturn(mockWorld));
+    }
     @Test
     public void testGetIntersectingObjectsTrue() {
-        TestActor anotherActor = intersectingActorsHelper(testActor, 10, 10, 10, 10);
-        // Assert
-        List<TestActor> intersectingObjects = anotherActor.getIntersectingObjects(TestActor.class);
-        assertEquals(1, intersectingObjects.size());
-        assertTrue(intersectingObjects.contains(testActor));
+        TestActor anotherActor = createActorAtPosition(OVERLAPPING_POSITION, OVERLAPPING_POSITION);
+        testActor.setX(OVERLAPPING_POSITION);
+        testActor.setY(OVERLAPPING_POSITION);
+        mockWorldWithActors(anotherActor, testActor);
+        assertEquals(1, anotherActor.getIntersectingObjects(TestActor.class).size());
+        assertTrue(anotherActor.getIntersectingObjects(TestActor.class).contains(testActor));
     }
 
     @Test
-    public void testGetIntersectingObjectsFalse() {
-        TestActor anotherActor = intersectingActorsHelper(testActor, 0, 0, 10, 10);
-        // Assert
-        List<TestActor> intersectingObjects = anotherActor.getIntersectingObjects(TestActor.class);
-        assertEquals(0, intersectingObjects.size());
-        assertTrue(intersectingObjects.isEmpty());
+    public void testGetIntersectingObjectsContainsFalse() {
+        TestActor anotherActor = createActorAtPosition(BASE_POSITION, BASE_POSITION);
+        testActor.setX(NON_OVERLAPPING_POSITION);
+        testActor.setY(NON_OVERLAPPING_POSITION);
+        mockWorldWithActors(anotherActor, testActor);
+        assertEquals(0, anotherActor.getIntersectingObjects(TestActor.class).size());
+        assertFalse(anotherActor.getIntersectingObjects(TestActor.class).contains(testActor));
     }
-
-    @Test
-    public void testGetOneIntersectingObject() {
-        TestActor anotherActor = intersectingActorsHelper(testActor, 10,10,10,10);
-        Actor intersectingObject = anotherActor.getOneIntersectingObject(TestActor.class);
-
-        assertNotNull(intersectingObject);
-        assertEquals(intersectingObject, testActor);
-    }
-
-    // Test individual actions (act implementations)
 }

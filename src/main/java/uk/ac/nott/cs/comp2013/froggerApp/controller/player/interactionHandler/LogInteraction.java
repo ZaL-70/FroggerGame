@@ -10,10 +10,7 @@ public class LogInteraction implements ObjectInteractionHandler {
         var logs = animal.getIntersectingObjects(Log.class);
         if (!(logs.isEmpty())) {
             Log log = logs.get(0);  // Get the first intersecting log
-            if(log.getLeft())
-                animal.move(-SpeedConfig.FAST,0);
-            else
-                animal.move(SpeedConfig.SLOW,0);
+            animal.move(log.getSpeed(),0);
         }
     }
 }

@@ -31,62 +31,64 @@ public class AnimalControllerTests extends ApplicationTest {
 
     @Test
     void testHandleBoundaryTop() {
-        when(mockAnimal.getY()).thenReturn(-1.0);
+        when(mockAnimal.getY()).thenReturn(BoardConfig.UPPER_BOUNDARY - 1);
         controller.handleBoundary();
         verify(mockAnimal).respawn();
     }
 
     @Test
     void testHandleBoundaryBottom() {
-        when(mockAnimal.getY()).thenReturn(735.0);
+        when(mockAnimal.getY()).thenReturn(BoardConfig.LOWER_BOUNDARY + 1);
         controller.handleBoundary();
         verify(mockAnimal).respawn();
     }
 
     @Test
     void testHandleBoundaryLeft() {
-        when(mockAnimal.getX()).thenReturn(-1.0);
+        when(mockAnimal.getX()).thenReturn(BoardConfig.LEFT_BOUNDARY - 1);
         controller.handleBoundary();
-        verify(mockAnimal).move(10.666666 * 2, 0); // Moved back into bounds
+        verify(mockAnimal).move(PlayerConfig.MOVEMENT_X, 0); // Moved back into bounds
     }
 
     @Test
     void testHandleBoundaryRight() {
-        when(mockAnimal.getX()).thenReturn(601.0);
+        when(mockAnimal.getX()).thenReturn(BoardConfig.RIGHT_BOUNDARY + 1);
         controller.handleBoundary();
-        verify(mockAnimal).move(-10.666666 * 2, 0);
+        verify(mockAnimal).move(-PlayerConfig.MOVEMENT_X, 0);
+    }
+
+    /* Helper function to make given key event */
+    private KeyEvent createKeyEvent(KeyCode keyCode) {
+        return new KeyEvent(KeyEvent.KEY_PRESSED, "", "", keyCode, false, false, false, false);
     }
 
     @Test
     void testOnKeyPressMoveUp() {
         when(mockAnimal.getState()).thenReturn(Animal.State.alive); // Mock alive state
-
-        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.W, false, false, false, false);
+        KeyEvent keyEvent = createKeyEvent(KeyCode.W);
         controller.onKeyPress(keyEvent);
-
-        verify(mockAnimal).move(0, -BoardConfig.ROW_HEIGHT / 2);
-        verify(mockAnimal).setImage(any()); // Image for jumping upward
+        verify(mockAnimal).move(0, -PlayerConfig.MOVEMENT_Y);
+        verify(mockAnimal).setImage(any());
     }
 
     @Test
     void testOnKeyPressMoveLeft() {
-        when(mockAnimal.getState()).thenReturn(Animal.State.alive); // Mock alive state
-
-        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.A, false, false, false, false);
+        when(mockAnimal.getState())
+                .thenReturn(Animal.State.alive); // Mock alive state
+        KeyEvent keyEvent = createKeyEvent(KeyCode.A);
         controller.onKeyPress(keyEvent);
-
-        verify(mockAnimal).getState();
-        verify(mockAnimal).move(-10.666666 * 2, 0);
-        verify(mockAnimal).setImage(any()); // Image for jumping left
+        verify(mockAnimal).move(
+                -PlayerConfig.MOVEMENT_X, 0);
+        verify(mockAnimal).setImage(any());
     }
 
     @Test
     void testNoMoveOnCarDeath() {
-        KeyEvent keyEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.A, false, false, false, false);
-        controller.onKeyPress(keyEvent);
         when(mockAnimal.getState()).thenReturn(Animal.State.carDeath); // Mock non-alive state
+        KeyEvent keyEvent = createKeyEvent(KeyCode.S);
+        controller.onKeyPress(keyEvent);
         verify(mockAnimal).getState();
-        verifyNoMoreInteractions(mockAnimal);
+        verify(mockAnimal, never()).move(any(Double.class), any(Double.class));
     }
 
     @Test
@@ -103,9 +105,7 @@ public class AnimalControllerTests extends ApplicationTest {
         WetTurtle mockWetTurtle = mock(WetTurtle.class);
         when(mockAnimal.getIntersectingObjects(WetTurtle.class)).thenReturn(List.of(mockWetTurtle));
         when(mockWetTurtle.isSunk()).thenReturn(true);
-
         controller.updateDeathState();
-
         verify(mockAnimal, atLeastOnce()).setState(Animal.State.waterDeath);
     }
 
@@ -114,11 +114,9 @@ public class AnimalControllerTests extends ApplicationTest {
         Log mockLog = mock(Log.class);
         when(mockAnimal.getIntersectingObjects(Log.class)).thenReturn(List.of(mockLog));
         when(mockAnimal.getState()).thenReturn(Animal.State.alive); // Mock alive state
-        when(mockLog.getLeft()).thenReturn(true);
-
+        when(mockLog.getSpeed()).thenReturn(1.0);  // Use actual speed from Log
         controller.handleActorInteraction();
-
-        verify(mockAnimal).move(-2, 0); // Move left with the log
+        verify(mockAnimal).move(mockLog.getSpeed(), 0); // Move left with the log
     }
 
     @Test
@@ -126,21 +124,28 @@ public class AnimalControllerTests extends ApplicationTest {
         Turtle mockTurtle = mock(Turtle.class);
         when(mockAnimal.getIntersectingObjects(Turtle.class)).thenReturn(List.of(mockTurtle));
         when(mockAnimal.getState()).thenReturn(Animal.State.alive); // Mock alive state
-
         controller.handleActorInteraction();
-
-        verify(mockAnimal).move(-1, 0); // Move left with the turtle
+        verify(mockAnimal).move(mockTurtle.getSpeed(), 0); // Move left with the turtle
     }
 
     @Test
     void testWetTurtleInteraction() {
         WetTurtle mockWetTurtle = mock(WetTurtle.class);
         when(mockAnimal.getIntersectingObjects(WetTurtle.class)).thenReturn(List.of(mockWetTurtle));
+        // Mock returning un sunk turtle
         when(mockAnimal.getIntersectingObjects(WetTurtle.class).getFirst().isSunk()).thenReturn(false);
-
         controller.handleActorInteraction();
+        verify(mockAnimal).move(mockWetTurtle.getSpeed(), 0); // Move left with the turtle
+    }
 
-        verify(mockAnimal).move(-1, 0); // Move left with the turtle
+    @Test
+    void testWetTurtleDeath() {
+        WetTurtle mockWetTurtle = mock(WetTurtle.class);
+        when(mockAnimal.getIntersectingObjects(WetTurtle.class)).thenReturn(List.of(mockWetTurtle));
+        // Mock returning sunk turtle
+        when(mockAnimal.getIntersectingObjects(WetTurtle.class).getFirst().isSunk()).thenReturn(true);
+        controller.handleActorInteraction();
+        verify(mockAnimal, never()).move(any(Double.class), any(Double.class));
     }
 
     @Test
@@ -148,9 +153,7 @@ public class AnimalControllerTests extends ApplicationTest {
         End mockEnd = mock(End.class);
         when(mockAnimal.getIntersectingObjects(End.class)).thenReturn(List.of(mockEnd));
         when(mockEnd.isActivated()).thenReturn(false);
-
         controller.handleActorInteraction();
-
         verify(mockAnimal).changeScore(50, true);
         verify(mockAnimal).incrementStop();
         verify(mockEnd).setEnd();

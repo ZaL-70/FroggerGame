@@ -15,9 +15,8 @@ public class GameLogic {
     }
 
     public void setNumber(int n) {
-        if(world.getChildren() != null) {
+        if(world.getChildren() != null)
             world.getChildren().removeIf(node -> node instanceof Digit);
-        }
         int shift = 0;
         while (n > 0) {
             int d = n / 10;

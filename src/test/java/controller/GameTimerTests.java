@@ -29,10 +29,8 @@ public class GameTimerTests {
     public void testCreateTimerScoreChange() {
         when(mockAnimal.getScoreChanged()).thenReturn(true);
         when(mockAnimal.getPoints()).thenReturn(100);
-
         gameTimer.createTimer();
         gameTimer.timer.handle(0);
-
         verify(mockLogicHandler).setNumber(100);
         assertEquals(mockAnimal.getPoints(), 100);
     }
@@ -40,10 +38,8 @@ public class GameTimerTests {
     @Test
     public void testCreateTimerGameEnd() {
         when(mockAnimal.getStop()).thenReturn(true);
-
         gameTimer.createTimer();
         gameTimer.timer.handle(0);
-
         verify(mockLogicHandler).handleGameEnd();
         assertEquals(mockAnimal.getPoints(), 0);
     }
@@ -52,9 +48,7 @@ public class GameTimerTests {
     public void testStartTimer() {
         AnimationTimer mockTimer = mock(AnimationTimer.class);
         gameTimer.timer = mockTimer;
-
         gameTimer.startTimer();
-
         verify(mockTimer).start();
     }
 
@@ -62,9 +56,7 @@ public class GameTimerTests {
     public void testStopTimer() {
         AnimationTimer mockTimer = mock(AnimationTimer.class);
         gameTimer.timer = mockTimer;
-
         gameTimer.stopTimer();
-
         verify(mockTimer).stop();
     }
 }

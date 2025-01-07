@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class contains event listeners for actors and renders Actor behavior repeatedly
- * This class must not be instantiated or accessed and must stay in the world package alongside {@link MyStage},
+ * This singleton class contains event listeners for all {@link Actor}
+ * added to the pane and renders their behavior repeatedly.
+ * This class must not be instantiated or accessed and must stay in its own package alongside {@link MyStage},
  * as that should be the main class to use for custom behaviour. Any necessary looping game behaviour can be added
  * here and {@link MyStage} will inherit it
  */

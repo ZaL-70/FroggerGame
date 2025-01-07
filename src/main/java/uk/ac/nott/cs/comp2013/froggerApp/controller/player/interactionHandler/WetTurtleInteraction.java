@@ -11,7 +11,7 @@ public class WetTurtleInteraction implements ObjectInteractionHandler {
         if (!wetTurtles.isEmpty()) {
             WetTurtle wetTurtle = wetTurtles.get(0);
             if (!(wetTurtle.isSunk())) {
-                animal.move(-TurtleConfig.SPEED_MEDIUM,0);
+                animal.move(wetTurtle.getSpeed(),0);
             }
         }
     }

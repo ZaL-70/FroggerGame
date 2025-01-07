@@ -38,13 +38,6 @@ public class Animal extends Actor {
 		imgD2 = new Image(PlayerConfig.IMAGE_PATHS.get("rightJump"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
 	}
 
-	public void respawn() {
-		setState(State.alive);
-		setImage(new Image(PlayerConfig.IMAGE_PATHS.get("up"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true));
-		setX(PlayerConfig.RESPAWN_X);
-		setY(BoardConfig.rowToY(PlayerConfig.RESPAWN_ROW));
-	}
-
 	public void initialise(AnimalController animalController) {
 		this.animalController = animalController;
 		respawn();
@@ -59,6 +52,16 @@ public class Animal extends Actor {
 				animalController.onKeyRelease(event);
 			}
 		});
+	}
+
+	public void respawn() {
+		setState(State.alive);
+		setImage(new Image(
+				PlayerConfig.IMAGE_PATHS.get("up"),
+				PlayerConfig.SIZE, PlayerConfig.SIZE,
+				true, true));
+		setX(PlayerConfig.RESPAWN_X);
+		setY(BoardConfig.rowToY(PlayerConfig.RESPAWN_ROW));
 	}
 
 	// AnimalModel is Actor (will act via controller)

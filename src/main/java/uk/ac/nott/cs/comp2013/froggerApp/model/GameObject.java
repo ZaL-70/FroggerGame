@@ -27,15 +27,4 @@ public class GameObject extends ImageView {
         }
         return someArray;
     }
-
-    public <A extends Actor> A getOneIntersectingObject(Class<A> cls) {
-        ArrayList<A> someArray = new ArrayList<A>();
-        for (A gameObject: getWorld().getObjects(cls)) {
-            if (gameObject != this && gameObject.intersects(this.getBoundsInLocal())) {
-                someArray.add(gameObject);
-                break;
-            }
-        }
-        return someArray.get(0);
-    }
 }
