@@ -38,6 +38,7 @@ public class GameConfig {
     public static class BoardConfig {
         public static final double WIDTH = 600;
         public static final double HEIGHT = 800;
+        public static final double WATER_BOUND = 413;
         public static final double BASE_Y = 166;
         public static final int TOTAL_ROWS = 12;
         public static final double ROW_HEIGHT = (HEIGHT - BASE_Y) / TOTAL_ROWS;
@@ -57,6 +58,11 @@ public class GameConfig {
         public static final double MEDIUM = 1;
         public static final double FAST = 2.0;
         public static final double SUPERFAST = 5;
+    }
+
+    public static class LivesConfig {
+        public static final int STARTING_LIVES = 3;
+        public static final int LIFE_PADDING = 35;
     }
 
     // Configuration for obstacles

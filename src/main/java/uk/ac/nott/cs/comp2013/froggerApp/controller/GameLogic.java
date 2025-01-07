@@ -1,8 +1,10 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
 import javafx.scene.control.Alert;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.Digit;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.Life;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class GameLogic {
@@ -24,6 +26,14 @@ public class GameLogic {
             n = d;
             world.add(new Digit(k,30, 360-shift, 25));
             shift += 30;
+        }
+    }
+
+    public void setLives() {
+        if(world.getChildren() != null)
+            world.getChildren().removeIf(node -> node instanceof Life);
+        for(int i = 0; i < animal.getLives(); i++) {
+            world.add(new Life(30, LivesConfig.LIFE_PADDING + i * LivesConfig.LIFE_PADDING, 1));
         }
     }
 

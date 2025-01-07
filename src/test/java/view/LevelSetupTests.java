@@ -2,16 +2,18 @@ package view;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uk.ac.nott.cs.comp2013.froggerApp.model.End;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Obstacle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Obstacle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.testfx.framework.junit5.ApplicationTest;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.Life;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class LevelSetupTests extends ApplicationTest {
@@ -22,6 +24,14 @@ public class LevelSetupTests extends ApplicationTest {
     public void setup() {
         testWorld = MyStage.getInstance();
         testAnimal = new Animal("file:src/main/resources/imgs/player/action/froggerUp.png");
+    }
+
+    @Test
+    public void testCreateLives() {
+        LevelSetup.createLives(testWorld, testAnimal);
+        // Verify the number of obstacles
+        long livesCount = testWorld.getChildren().stream().filter(node -> node instanceof Life).count();
+        assertEquals(LivesConfig.STARTING_LIVES, livesCount);
     }
 
     @Test

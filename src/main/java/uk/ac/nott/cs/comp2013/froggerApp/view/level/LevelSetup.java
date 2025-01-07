@@ -1,12 +1,12 @@
 package uk.ac.nott.cs.comp2013.froggerApp.view.level;
 
-import uk.ac.nott.cs.comp2013.froggerApp.model.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories.LogFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories.ObstacleFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories.TurtleFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.factories.WetTurtleFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.LogFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.ObstacleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.TurtleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.WetTurtleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
 
@@ -36,11 +36,19 @@ public class LevelSetup {
         createEndPoints(world);
         createAnimal(world,animal);
 
+        createLives(world,animal);
         world.add(new Digit(0, 30, 360, 25));
         world.start();
 
         return world;
     }
+
+    public static void createLives(MyStage world, Animal animal) {
+        for(int i = 0; i < LivesConfig.STARTING_LIVES; i++) {
+            world.add(new Life(30, LivesConfig.LIFE_PADDING + i * LivesConfig.LIFE_PADDING, 1));
+        }
+    }
+
 
     public static void createAnimal(World world, Animal animal) {
         world.add(animal);
