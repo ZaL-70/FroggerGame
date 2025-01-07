@@ -63,6 +63,7 @@ public class GameConfig {
     public static class LivesConfig {
         public static final int STARTING_LIVES = 3;
         public static final int LIFE_PADDING = 35;
+        public static final int LIFE_SIZE = 30;
     }
 
     // Configuration for obstacles

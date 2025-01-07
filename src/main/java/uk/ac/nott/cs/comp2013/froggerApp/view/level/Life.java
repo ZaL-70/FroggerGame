@@ -9,7 +9,7 @@ public class Life extends GameObject {
     public Life(int size, int x, int y) {
         setX(x);
         setY(GameConfig.BoardConfig.rowToY(y));
-        setImage(new Image("file:src/main/resources/imgs/info/life-heart.png", 30, 30, true, true));
+        setImage(new Image("file:src/main/resources/imgs/info/life-heart.png", size, size, true, true));
     }
 
 }

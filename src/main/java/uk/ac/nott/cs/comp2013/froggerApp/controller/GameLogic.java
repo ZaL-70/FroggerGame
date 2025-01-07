@@ -33,7 +33,7 @@ public class GameLogic {
         if(world.getChildren() != null)
             world.getChildren().removeIf(node -> node instanceof Life);
         for(int i = 0; i < animal.getLives(); i++) {
-            world.add(new Life(30, LivesConfig.LIFE_PADDING + i * LivesConfig.LIFE_PADDING, 1));
+            world.add(new Life(LivesConfig.LIFE_SIZE, LivesConfig.LIFE_PADDING + i * LivesConfig.LIFE_PADDING, 1));
         }
     }
 
