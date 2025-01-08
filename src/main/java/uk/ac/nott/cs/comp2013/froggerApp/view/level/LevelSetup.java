@@ -111,4 +111,10 @@ public class LevelSetup {
         world.add(BirdFactory.createBirdTopLeft(BirdConfig.SIZE, SpeedConfig.FAST));
         world.add(BirdFactory.createBirdLeft(BirdConfig.SIZE, 600, BoardConfig.rowToY(2), -2.25 * SpeedConfig.MEDIUM, -SpeedConfig.MEDIUM));
     }
+
+    public static void resetEnds() {
+        MyStage world = MyStage.getInstance();
+        if(world.getChildren() != null)
+            world.getChildren().removeIf(node -> node instanceof End);
+    }
 }

@@ -90,29 +90,4 @@ public class FroggerUI extends UI {
         levelLabel.setText("LEVEL: " + level);
     }
 
-    /**
-     * Creates the game over screen.
-     */
-    public void createGameOver() {
-        Text gameOverText = new Text("GAME OVER!\nPress SPACE to restart...");
-        gameOverText.setTextAlignment(TextAlignment.CENTER);
-        StackPane.setAlignment(gameOverText, Pos.CENTER);
-        gameOverPane.getChildren().add(gameOverText);
-        gameOverText.setFont(Font.font("Impact", FontWeight.BOLD, 60));
-
-        // Make gameOverPane and base transparent
-        gameOverPane.setStyle("-fx-background-color: rgba(255, 102, 129, 0.73);");
-        base.setStyle("-fx-background-color: rgba(255, 102, 129, 0.73);");
-    }
-
-    /**
-     * Removes the game over screen.
-     */
-    public void removeGameOver() {
-        gameOverPane.getChildren().remove(0);
-        gameOverPane.setStyle("-fx-background-color: transparent;");
-        base.setStyle("-fx-background-color: transparent;");
-    }
-
-
 }

@@ -56,8 +56,7 @@ public class GameLogic {
             animal.setEnd(0);
             level++;
             animal.changeLives(1,true);
-            if(world.getChildren() != null)
-                world.getChildren().removeIf(node -> node instanceof End);
+            LevelSetup.resetEnds();
             LevelSetup.createEndPoints(world);
             LevelSetup.createEagles(world);
         }

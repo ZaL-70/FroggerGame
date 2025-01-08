@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 
 import java.io.File;
 
@@ -33,12 +34,12 @@ public class MyStage extends World {
 	}
 
 	public void createGameOverScreen(int score) {
-		Text gameOverText = new Text("YOU WIN!\n Your High Score: " + score + "\nPress SPACE to restart...");
+		Text gameOverText = new Text("GAME OVER!\n Your High Score: " + score + "\nPress SPACE to restart...");
 		gameOverText.setTextAlignment(TextAlignment.CENTER);
 		gameOverText.setFont(Font.font("Impact", FontWeight.BOLD, 60));
-		// Create the StackPane and set its size (width and height)
-		gameOverPane.setPrefWidth(600);  // Set a fixed width for the game over screen
-		gameOverPane.setPrefHeight(800); // Set a fixed height for the game over screen
+		// Create the StackPane and set its size
+		gameOverPane.setPrefWidth(BoardConfig.WIDTH);
+		gameOverPane.setPrefHeight(BoardConfig.HEIGHT);
 		// Center the text in the StackPane
 		StackPane.setAlignment(gameOverText, Pos.CENTER);
 		gameOverPane.getChildren().add(gameOverText);
@@ -47,12 +48,12 @@ public class MyStage extends World {
 	}
 
 	public void createWinScreen(int score) {
-		Text gameOverText = new Text("YOU WIN!\n Your High Score: " + score + "\nPress SPACE to restart...");
+		Text gameOverText = new Text("YOU WIN!\n Your High Score: " + score + "\nPress SPACE to replay...");
 		gameOverText.setTextAlignment(TextAlignment.CENTER);
 		gameOverText.setFont(Font.font("Impact", FontWeight.BOLD, 60));
-		// Create the StackPane and set its size (width and height)
-		gameOverPane.setPrefWidth(600);  // Set a fixed width for the game over screen
-		gameOverPane.setPrefHeight(800); // Set a fixed height for the game over screen
+		// Create the StackPane and set its size
+		gameOverPane.setPrefWidth(BoardConfig.WIDTH);
+		gameOverPane.setPrefHeight(BoardConfig.HEIGHT);
 		// Center the text in the StackPane
 		StackPane.setAlignment(gameOverText, Pos.CENTER);
 		gameOverPane.getChildren().add(gameOverText);
@@ -60,12 +61,7 @@ public class MyStage extends World {
 		getChildren().add(gameOverPane);
 	}
 
-	public void removeGameOver() {
-		gameOverPane.getChildren().clear(); // Clear game over text
-		gameOverPane.setStyle("-fx-background-color: transparent;");
-	}
-
-	public void removeWin() {
+	public void removeGameEndScreen() {
 		gameOverPane.getChildren().clear(); // Clear game over text
 		gameOverPane.setStyle("-fx-background-color: transparent;");
 	}

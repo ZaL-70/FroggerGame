@@ -16,10 +16,11 @@ public class Animal extends Actor {
 		waterDeath,
 		carDeath,
 		endDeath,
-		captured
+		captured,
+		end
 	}
 
-	int points = 0, lives = LivesConfig.STARTING_LIVES, end = 0;
+	int points = 0, lives = 0, end = 0;
 	double max_height = PlayerConfig.MAX_HEIGHT;
 	boolean scoreChanged = false, livesChanged = false;
 	State deathState;
@@ -41,6 +42,12 @@ public class Animal extends Actor {
 
 	public void initialise(AnimalController animalController) {
 		this.animalController = animalController;
+
+		changeScore(-getPoints(),true);
+		changeLives(LivesConfig.STARTING_LIVES,true);
+		setEnd(0);
+		setMaxHeight(PlayerConfig.MAX_HEIGHT);
+
 		respawn();
 
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -88,7 +95,7 @@ public class Animal extends Actor {
 	}
 
 	public void setEnd(int n) {
-		this.end = 0;
+		this.end = n;
 	}
 
 	public boolean getEnd() {
