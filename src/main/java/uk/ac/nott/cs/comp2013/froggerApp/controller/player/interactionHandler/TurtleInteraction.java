@@ -7,7 +7,7 @@ public class TurtleInteraction implements ObjectInteractionHandler {
     @Override
     public void interact(Animal animal) {
         var turtles = animal.getIntersectingObjects(Turtle.class);
-        if (!turtles.isEmpty()) {
+        if (!turtles.isEmpty() && animal.getState() != Animal.State.captured) {
             Turtle turtle = turtles.get(0);
             animal.move(turtle.getSpeed(), 0);
         }

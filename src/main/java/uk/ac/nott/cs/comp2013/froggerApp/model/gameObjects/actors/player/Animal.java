@@ -15,7 +15,8 @@ public class Animal extends Actor {
 		alive,
 		waterDeath,
 		carDeath,
-		endDeath
+		endDeath,
+		captured
 	}
 
 	int points = 0, lives = LivesConfig.STARTING_LIVES, end = 0;
@@ -68,7 +69,8 @@ public class Animal extends Actor {
 	@Override
 	public void act(long now) {
 		animalController.handleBoundary();
-		animalController.updateDeathState();
+		if(getState() != State.captured)
+			animalController.updateDeathState();
 		animalController.handleDeath(now);
 		animalController.handleActorInteraction();
 	}
@@ -81,12 +83,20 @@ public class Animal extends Actor {
 		return deathState;
 	}
 
-	public void incrementStop() {
+	public void incrementEnd() {
 		this.end++;
 	}
 
+	public void setEnd(int n) {
+		this.end = 0;
+	}
+
+	public boolean getEnd() {
+		return end == 5;
+	}
+
 	public boolean getStop() {
-		return end==5 || lives == 0;
+		return lives == 0;
 	}
 
 	public int getPoints() {

@@ -7,7 +7,7 @@ public class WetTurtleInteraction implements ObjectInteractionHandler {
     @Override
     public void interact(Animal animal) {
         var wetTurtles = animal.getIntersectingObjects(WetTurtle.class);
-        if (!wetTurtles.isEmpty()) {
+        if (!wetTurtles.isEmpty() && animal.getState() != Animal.State.captured) {
             WetTurtle wetTurtle = wetTurtles.get(0);
             if (!(wetTurtle.isSunk())) {
                 animal.move(wetTurtle.getSpeed(),0);

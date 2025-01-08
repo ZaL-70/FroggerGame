@@ -8,6 +8,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.view.level.Digit;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -49,5 +50,12 @@ public class GameLogicTests extends ApplicationTest {
         when(mockAnimal.getPoints()).thenReturn(150);
         boolean ended = gameLogic.handleGameEnd();
         assertFalse(ended);
+    }
+
+    @Test
+    public void testHandleLevelEndTrue() {
+        when(mockAnimal.getEnd()).thenReturn(true);
+        gameLogic.handleLevelEnd();
+        verify(mockAnimal).changeLives(1, true);
     }
 }

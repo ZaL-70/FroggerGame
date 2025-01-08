@@ -5,7 +5,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
 
 public class TurtleFactory {
-    public static Turtle createTurtle(int size, int xpos, int row, double speed) {
+    public static Turtle createTurtle(int size, double xpos, int row, double speed) {
         Turtle turtle = new Turtle();
         turtle.setTurtleImages(
                 new Image(TurtleConfig.IMAGE_PATHS.get("animation1"), size, size,true,true),

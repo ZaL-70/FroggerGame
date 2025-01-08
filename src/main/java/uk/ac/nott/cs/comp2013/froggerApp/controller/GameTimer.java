@@ -20,7 +20,8 @@ public class GameTimer {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (animal.getScoreChanged()) {
+                logicHandler.handleLevelEnd();
+                if(animal.getScoreChanged()) {
                     logicHandler.setNumber(animal.getPoints());
                 }
                 if(animal.getLivesChanged()) {
