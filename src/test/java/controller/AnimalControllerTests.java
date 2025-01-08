@@ -13,10 +13,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.Home
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.animationHandler.WaterDeathAnimator;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Obstacle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
 
@@ -89,8 +86,8 @@ public class AnimalControllerTests extends ApplicationTest {
 
     @ParameterizedTest
     @EnumSource(value = Animal.State.class,
-            names = { "carDeath", "waterDeath", "endDeath"})
-    void testNoMoveOnDeath(Animal.State state) {
+            names = { "carDeath", "waterDeath", "endDeath", "captured"})
+    void testNoMoveOnState(Animal.State state) {
         when(mockAnimal.getState()).thenReturn(state); // Mock non-alive state
         KeyEvent keyEvent = createKeyEvent(KeyCode.S);
         controller.onKeyPress(keyEvent);
@@ -150,7 +147,6 @@ public class AnimalControllerTests extends ApplicationTest {
     void testLogInteraction() {
         Log mockLog = mock(Log.class);
         when(mockAnimal.getIntersectingObjects(Log.class)).thenReturn(List.of(mockLog));
-        when(mockAnimal.getState()).thenReturn(Animal.State.alive); // Mock alive state
         when(mockLog.getSpeed()).thenReturn(1.0);  // Use actual speed from Log
         controller.handleActorInteraction();
         verify(mockAnimal).move(mockLog.getSpeed(), 0); // Move left with the log
@@ -160,7 +156,6 @@ public class AnimalControllerTests extends ApplicationTest {
     void testTurtleInteraction() {
         Turtle mockTurtle = mock(Turtle.class);
         when(mockAnimal.getIntersectingObjects(Turtle.class)).thenReturn(List.of(mockTurtle));
-        when(mockAnimal.getState()).thenReturn(Animal.State.alive); // Mock alive state
         controller.handleActorInteraction();
         verify(mockAnimal).move(mockTurtle.getSpeed(), 0); // Move left with the turtle
     }
@@ -176,13 +171,21 @@ public class AnimalControllerTests extends ApplicationTest {
     }
 
     @Test
+    void testBirdInteraction() {
+        Bird mockBird = mock(Bird.class);
+        when(mockAnimal.getIntersectingObjects(Bird.class)).thenReturn(List.of(mockBird));
+        controller.handleActorInteraction();
+        verify(mockAnimal).move(mockBird.getSpeedX(), mockBird.getSpeedY()); // Move left with the turtle
+    }
+
+    @Test
     void testEndInteraction() {
         End mockEnd = mock(End.class);
         when(mockAnimal.getIntersectingObjects(End.class)).thenReturn(List.of(mockEnd));
         when(mockEnd.isActivated()).thenReturn(false);
         controller.handleActorInteraction();
         verify(mockAnimal).changeScore(50, true);
-        verify(mockAnimal).incrementStop();
+        verify(mockAnimal).incrementEnd();
         verify(mockEnd).setEnd();
     }
 }

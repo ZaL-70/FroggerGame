@@ -2,13 +2,9 @@ package uk.ac.nott.cs.comp2013.froggerApp.view.level;
 
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.LogFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.ObstacleFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.TurtleFactory;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.WetTurtleFactory;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
-import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
 
 public class LevelSetup {
     private static final String LOG1 = LogConfig.IMAGE_PATHS.get("log1");
@@ -49,19 +45,18 @@ public class LevelSetup {
         }
     }
 
-
-    public static void createAnimal(World world, Animal animal) {
+    public static void createAnimal(MyStage world, Animal animal) {
         world.add(animal);
     }
 
-    public static void createEndPoints(World world) {
+    public static void createEndPoints(MyStage world) {
         int ypos = EndPointConfig.Y_POSITION, initialX = EndPointConfig.INITIAL_X, gap = EndPointConfig.GAP;
         for (int i = 0; i < EndPointConfig.TOTAL_END_POINTS; i++) {
             world.add(new End(initialX + i * gap, ypos));
         }
     }
 
-    public static void createLogs(World world) {
+    public static void createLogs(MyStage world) {
         final int LONG_LOG_SIZE = LogConfig.SIZE_LONG, SHORT_LOG_SIZE = LogConfig.SIZE_SHORT;
         // Row 5 logs, gap 220, right, slow
         world.add(LogFactory.createLog(LOG3, SHORT_LOG_SIZE, 0, 12, SLOW_SPEED));
@@ -76,7 +71,7 @@ public class LevelSetup {
         world.add(LogFactory.createLog(LOG3, SHORT_LOG_SIZE, 490, 9, SLOW_SPEED));
     }
 
-    public static void createWetTurtles(World world) {
+    public static void createWetTurtles(MyStage world) {
         final int TURTLE_SIZE = TurtleConfig.SIZE;
         // Row 4 wet turtles, gap 200, left, medium
         world.add(WetTurtleFactory.createWetTurtle(TURTLE_SIZE,200,11,-MEDIUM_SPEED));
@@ -86,14 +81,14 @@ public class LevelSetup {
         world.add(WetTurtleFactory.createWetTurtle(TURTLE_SIZE,700,8,-MEDIUM_SPEED));
     }
 
-    public static void createTurtles(World world) {
+    public static void createTurtles(MyStage world) {
         final int WET_TURTLE_SIZE = TurtleConfig.SIZE;
         // Row 1 turtles, gap 200, left medium
         world.add(TurtleFactory.createTurtle(WET_TURTLE_SIZE,300,8,-MEDIUM_SPEED));
         world.add(TurtleFactory.createTurtle(WET_TURTLE_SIZE,500,8,-MEDIUM_SPEED));
     }
 
-    public static void createObstacles(World world) {
+    public static void createObstacles(MyStage world) {
         final int CAR_SIZE = ObstacleConfig.CAR_SIZE;
         final int LONG_TRUCK_SIZE = ObstacleConfig.LONG_TRUCK_SIZE, SHORT_TRUCK_SIZE = ObstacleConfig.SHORT_TRUCK_SIZE;
         // Row 1 trucks, gap 300, right, medium
@@ -110,5 +105,10 @@ public class LevelSetup {
         world.add(ObstacleFactory.createObstacle(TRUCK2_RIGHT,LONG_TRUCK_SIZE,500,5, MEDIUM_SPEED));
         // Row 4 car, left, superfast
         world.add(ObstacleFactory.createObstacle(CAR1_LEFT,CAR_SIZE,500,6, -SUPERFAST_SPEED));
+    }
+
+    public static void createEagles(MyStage world) {
+        world.add(BirdFactory.createBirdTopLeft(BirdConfig.SIZE, SpeedConfig.FAST));
+        world.add(BirdFactory.createBirdLeft(BirdConfig.SIZE, 600, BoardConfig.rowToY(2), -2.25 * SpeedConfig.MEDIUM, -SpeedConfig.MEDIUM));
     }
 }

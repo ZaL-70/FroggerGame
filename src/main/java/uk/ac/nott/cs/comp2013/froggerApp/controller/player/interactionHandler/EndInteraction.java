@@ -10,7 +10,7 @@ public class EndInteraction implements ObjectInteractionHandler {
         if (!(animal.getIntersectingObjects(End.class).isEmpty()) && !animal.getOnObstacle()) {
             if (!animal.getIntersectingObjects(End.class).getFirst().isActivated()) {
                 animal.changeScore(50, true);
-                animal.incrementStop();
+                animal.incrementEnd();
                 animal.setMaxHeight(BoardConfig.HEIGHT);
                 animal.getIntersectingObjects(End.class).getFirst().setEnd();
                 animal.respawn();
