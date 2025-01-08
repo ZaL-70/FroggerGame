@@ -16,8 +16,7 @@ public class Animal extends Actor {
 		waterDeath,
 		carDeath,
 		endDeath,
-		captured,
-		end
+		captured
 	}
 
 	int points = 0, lives = 0, end = 0;
@@ -136,8 +135,7 @@ public class Animal extends Actor {
 		if (livesChanged) {
 			livesChanged = false;
 			return true;
-		}
-		return false;
+		} return false;
 	}
 
 	public boolean getOnObstacle() {

@@ -39,24 +39,17 @@ public class GameLogic {
 
     public boolean handleGameEnd() {
         boolean stop = animal.getStop();
-        if (stop) {
-            gameEnd();
-            showLose();
-        }
-        if (level > 2) {
-            gameEnd();
-            showWin();
-        }
+        if (stop) { gameEnd(); showLose(); }
+        if (level > 2) { gameEnd(); showWin(); }
         return stop || level > 2;
     }
 
     public void handleLevelEnd() {
         boolean end = animal.getEnd();
         if (end && level < 3) {
-            animal.setEnd(0);
-            level++;
-            animal.changeLives(1,true);
-            LevelSetup.resetEnds();
+            animal.setEnd(0); animal.changeLives(
+                    1,true);
+            level++; LevelSetup.resetEnds();
             LevelSetup.createEndPoints(world);
             LevelSetup.createEagles(world);
         }

@@ -113,8 +113,6 @@ public class LevelSetup {
     }
 
     public static void resetEnds() {
-        MyStage world = MyStage.getInstance();
-        if(world.getChildren() != null)
-            world.getChildren().removeIf(node -> node instanceof End);
+        MyStage.getInstance().removeInstancesOf(End.class);
     }
 }
