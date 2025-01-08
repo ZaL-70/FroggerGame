@@ -14,7 +14,10 @@ repositories {
 val mockitoAgent = configurations.create("mockitoAgent")
 
 dependencies {
+    // Application dependencies
     implementation("org.apache.commons:commons-csv:1.12.0")
+
+    // Testing dependencies
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.vintage:junit-vintage-engine")
@@ -22,6 +25,10 @@ dependencies {
     testImplementation("com.pholser:junit-quickcheck-core:1.0")
     testImplementation("com.pholser:junit-quickcheck-generators:1.0")
     testImplementation("org.mockito:mockito-core:5.14.+")
+    testImplementation("org.testfx:testfx-core:4.0.16-alpha")
+    testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
+
+    // Mockito Agent
     mockitoAgent("org.mockito:mockito-core:5.14.+") { isTransitive = false }
 }
 
@@ -45,5 +52,5 @@ javafx {
         "javafx.controls",
         "javafx.fxml",
         "javafx.media"
-        )
+    )
 }
