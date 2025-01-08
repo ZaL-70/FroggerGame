@@ -7,7 +7,7 @@ public class LogInteraction implements ObjectInteractionHandler {
     @Override
     public void interact(Animal animal) {
         var logs = animal.getIntersectingObjects(Log.class);
-        if (!(logs.isEmpty())) {
+        if (!logs.isEmpty() && animal.getState() != Animal.State.captured) {
             Log log = logs.get(0);  // Get the first intersecting log
             animal.move(log.getSpeed(),0);
         }

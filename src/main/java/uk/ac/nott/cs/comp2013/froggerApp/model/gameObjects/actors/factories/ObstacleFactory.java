@@ -5,7 +5,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Obstacle;
 
 public class ObstacleFactory {
-    public static Obstacle createObstacle(String imageLink, int size, int xpos, int row, double speed) {
+    public static Obstacle createObstacle(String imageLink, int size, double xpos, int row, double speed) {
         Obstacle obstacle = new Obstacle();
         obstacle.setImage(new Image(imageLink, size, size, true, true));
         obstacle.setX(xpos);

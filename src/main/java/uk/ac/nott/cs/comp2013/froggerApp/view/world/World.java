@@ -84,8 +84,10 @@ public class World extends Pane {
         getChildren().add(gameObject);
     }
 
-    public void remove(GameObject gameObject) {
-        getChildren().remove(gameObject);
+    public <T> void removeInstancesOf(Class<T> clazz) {
+        if (getChildren() != null) {
+            getChildren().removeIf(clazz::isInstance);
+        }
     }
 
     public <A extends GameObject> List<A> getObjects(Class<A> cls) {

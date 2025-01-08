@@ -30,7 +30,8 @@ public class AnimalController {
 
     public AnimalController(Animal animal) {
         deathCheckers = List.of(new CollisionChecker(), new DrowningChecker(), new TakenHomeChecker());
-        interactionHandlers = List.of(new LogInteraction(), new TurtleInteraction(), new WetTurtleInteraction(), new EndInteraction());
+        interactionHandlers = List.of(new LogInteraction(), new TurtleInteraction(),
+                new WetTurtleInteraction(), new EndInteraction(), new BirdInteraction());
         deathAnimators = List.of(new HomeTakenAnimator(), new WaterDeathAnimator(), new CarDeathAnimator());
         this.animal = animal;
     }

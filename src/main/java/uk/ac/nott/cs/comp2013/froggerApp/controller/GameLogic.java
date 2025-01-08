@@ -1,15 +1,17 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
-import javafx.scene.control.Alert;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.Digit;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.Life;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class GameLogic {
     MyStage world;
     Animal animal;
+    int level = 1;
 
     public GameLogic(MyStage world, Animal animal) {
         this.world = world;
@@ -17,8 +19,7 @@ public class GameLogic {
     }
 
     public void setNumber(int n) {
-        if(world.getChildren() != null)
-            world.getChildren().removeIf(node -> node instanceof Digit);
+        world.removeInstancesOf(Digit.class);
         int shift = 0;
         while (n > 0) {
             int d = n / 10;
@@ -30,8 +31,7 @@ public class GameLogic {
     }
 
     public void setLives() {
-        if(world.getChildren() != null)
-            world.getChildren().removeIf(node -> node instanceof Life);
+        world.removeInstancesOf(Life.class);
         for(int i = 0; i < animal.getLives(); i++) {
             world.add(new Life(LivesConfig.LIFE_SIZE, LivesConfig.LIFE_PADDING + i * LivesConfig.LIFE_PADDING, 1));
         }
@@ -40,19 +40,40 @@ public class GameLogic {
     public boolean handleGameEnd() {
         boolean stop = animal.getStop();
         if (stop) {
-            System.out.print("STOPP:");
-            world.stopMusic();
-            world.stop();
-            //showAlert();  // refactor to alternative method (add onscreen feature)
+            gameEnd();
+            showLose();
         }
-        return stop;
+        if (level > 2) {
+            gameEnd();
+            showWin();
+        }
+        return stop || level > 2;
     }
 
-    public void showAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("You Have Won The Game!");
-        alert.setHeaderText("Your High Score: " + animal.getPoints() + "!");
-        alert.setContentText("Highest Possible Score: 800");
-        alert.show();
+    public void handleLevelEnd() {
+        boolean end = animal.getEnd();
+        if (end && level < 3) {
+            animal.setEnd(0);
+            level++;
+            animal.changeLives(1,true);
+            if(world.getChildren() != null)
+                world.getChildren().removeIf(node -> node instanceof End);
+            LevelSetup.createEndPoints(world);
+            LevelSetup.createEagles(world);
+        }
+    }
+
+    public void showWin() {
+        world.createWinScreen(animal.getPoints());
+    }
+
+    public void showLose() {
+        world.createGameOverScreen(animal.getPoints());
+    }
+
+    public void gameEnd() {
+        System.out.println("STOPP:");
+        world.stopMusic();
+        world.stop();
     }
 }

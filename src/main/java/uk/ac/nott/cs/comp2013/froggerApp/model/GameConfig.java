@@ -58,6 +58,7 @@ public class GameConfig {
         public static final double MEDIUM = 1;
         public static final double FAST = 2.0;
         public static final double SUPERFAST = 5;
+        public static final double XSCALE = BoardConfig.WIDTH / BoardConfig.HEIGHT;
     }
 
     public static class LivesConfig {
@@ -105,9 +106,20 @@ public class GameConfig {
             IMAGE_PATHS.put("animation2", "file:src/main/resources/imgs/obstacle/TurtleAnimation2.png");
             IMAGE_PATHS.put("animation1", "file:src/main/resources/imgs/obstacle/TurtleAnimation1.png");
         }
-        public static final double SPEED_MEDIUM = 1.0;
         public static final int SIZE = 130;
+    }
 
+    public static class BirdConfig {
+        public static final Map<String, String> IMAGE_PATHS = new HashMap<>();
+        static {
+            IMAGE_PATHS.put("animationLeft3", "file:src/main/resources/imgs/obstacle/bird3Left.png");
+            IMAGE_PATHS.put("animationLeft2", "file:src/main/resources/imgs/obstacle/bird2Left.png");
+            IMAGE_PATHS.put("animationLeft1", "file:src/main/resources/imgs/obstacle/bird1Left.png");
+            IMAGE_PATHS.put("animationRight3", "file:src/main/resources/imgs/obstacle/bird3Right.png");
+            IMAGE_PATHS.put("animationRight2", "file:src/main/resources/imgs/obstacle/bird2Right.png");
+            IMAGE_PATHS.put("animationRight1", "file:src/main/resources/imgs/obstacle/bird1Right.png");
+        }
+        public static final int SIZE = 75;
     }
 
     // Configuration for end points

@@ -5,7 +5,7 @@ import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;;
 
 public class LogFactory {
-    public static Log createLog(String imageLink, int size, int xpos, int row, double speed) {
+    public static Log createLog(String imageLink, int size, double xpos, int row, double speed) {
         Log log = new Log();
         log.setImage(new Image(imageLink, size, size, true, true));
         log.setX(xpos);
