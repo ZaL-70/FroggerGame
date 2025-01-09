@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
-import uk.ac.nott.cs.comp2013.froggerApp.view.world.World;
+import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 import java.util.Arrays;
 
@@ -17,20 +17,19 @@ public class ActorTests {
     private static final double BASE_POSITION = 0;
     private static final double NON_OVERLAPPING_POSITION = 100;
 
-    public class TestActor extends Actor {
+    public static class TestActor extends Actor {
         @Override
         public void act(long now) { /* No implementation for base class tests */ }
     }
     private TestActor testActor;
-    private World mockWorld;
+    private MyStage mockWorld;
 
     @BeforeEach
     public void setUp() {
         testActor = spy(new TestActor());
-        mockWorld = mock(World.class);
+        mockWorld = mock(MyStage.class);
     }
 
-    // Test movements
     @ParameterizedTest
     @CsvSource({
             "10,5,15",
@@ -44,6 +43,7 @@ public class ActorTests {
         testActor.move(dx,0);
         assertEquals(endX, testActor.getX());
     }
+
     @ParameterizedTest
     @CsvSource({
             "10,5,15",
@@ -58,7 +58,6 @@ public class ActorTests {
         assertEquals(endY, testActor.getY());
     }
 
-    // Test get world
     @Test
     public void testGetWorld() {
         when(mockWorld.getObjects(TestActor.class)).thenReturn(Arrays.asList(testActor));
@@ -66,12 +65,12 @@ public class ActorTests {
         assertEquals(mockWorld, testActor.getWorld());
     }
 
-    // Test correct size
     @Test
     public void testGetWidth() {
         testActor.setFitWidth(50);
         assertEquals(50, testActor.getWidth());
     }
+
     @Test
     public void testGetHeight() {
         testActor.setFitHeight(30);
@@ -85,10 +84,12 @@ public class ActorTests {
         return actor;
     }
 
+    /* Helper function to add test actors to a world */
     private void mockWorldWithActors(TestActor... actors) {
         when(mockWorld.getObjects(TestActor.class)).thenReturn(Arrays.asList(actors));
         Arrays.stream(actors).forEach(actor -> when(actor.getWorld()).thenReturn(mockWorld));
     }
+
     @Test
     public void testGetIntersectingObjectsTrue() {
         TestActor anotherActor = createActorAtPosition(OVERLAPPING_POSITION, OVERLAPPING_POSITION);

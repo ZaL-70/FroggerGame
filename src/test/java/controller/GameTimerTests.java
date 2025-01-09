@@ -13,16 +13,14 @@ import static org.mockito.Mockito.*;
 
 public class GameTimerTests {
     private Animal mockAnimal;
-    private MyStage mockBackground;
     private GameLogic mockLogicHandler;
     private GameTimer gameTimer;
 
     @BeforeEach
     public void setUp() {
         mockAnimal = mock(Animal.class);
-        mockBackground = mock(MyStage.class);
         mockLogicHandler = mock(GameLogic.class);
-        gameTimer = new GameTimer(mockBackground, mockAnimal, mockLogicHandler);
+        gameTimer = new GameTimer(mockAnimal, mockLogicHandler);
     }
 
     @Test

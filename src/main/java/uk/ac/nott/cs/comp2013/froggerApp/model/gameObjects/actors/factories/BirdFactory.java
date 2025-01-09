@@ -2,8 +2,13 @@ package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories;
 
 import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Bird;
 
+/**
+ * Factory class for statically generating different types of
+ * {@link Bird} objects
+ */
 public class BirdFactory {
     public static Bird createBirdTopLeft(int size, double speed) {
         Bird birdLeft = new Bird();

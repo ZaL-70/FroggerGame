@@ -2,8 +2,13 @@ package uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories;
 
 import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.Actor;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Log;;
 
+/**
+ * Factory class for statically generating different types of
+ * {@link Log} objects
+ */
 public class LogFactory {
     public static Log createLog(String imageLink, int size, double xpos, int row, double speed) {
         Log log = new Log();

@@ -10,6 +10,10 @@ import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.Turtle;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.WetTurtle;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.player.AnimalController;
 
+/**
+ * Model class for the player storing information, states
+ * & renderable actions via the controller.
+ */
 public class Animal extends Actor {
 	public enum State {
 		alive,
@@ -26,7 +30,6 @@ public class Animal extends Actor {
 	AnimalController animalController;
 	public static Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
 
-	// Animal (actor/entity) constructor adds behavior via a controller
 	public Animal(String imageLink) {
 		setImage(new Image(imageLink));
 		imgW1 = new Image(PlayerConfig.IMAGE_PATHS.get("up"), PlayerConfig.SIZE, PlayerConfig.SIZE, true, true);
@@ -71,7 +74,6 @@ public class Animal extends Actor {
 		setY(BoardConfig.rowToY(PlayerConfig.RESPAWN_ROW));
 	}
 
-	// AnimalModel is Actor (will act via controller)
 	@Override
 	public void act(long now) {
 		animalController.handleBoundary();

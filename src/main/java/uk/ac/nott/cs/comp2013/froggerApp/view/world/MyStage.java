@@ -12,10 +12,15 @@ import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 
 import java.io.File;
 
+/**
+ * Singleton class for the game world inheriting {@link World}. Any custom behaviour
+ * for managing {@link World} contents, game UI, sound effects etc should be handled here
+ */
 public class MyStage extends World {
 	private static MyStage instance;
 	MediaPlayer mediaPlayer;
 	StackPane gameOverPane;
+
 
 	private MyStage() {
 		super();
@@ -26,6 +31,9 @@ public class MyStage extends World {
 		gameOverPane.setStyle("-fx-background-color: transparent;");
 	}
 
+	/**
+	 * @return singleton instance of game world
+	 */
 	public static MyStage getInstance() {
 		if (instance == null) {
 			instance = new MyStage();
@@ -75,7 +83,9 @@ public class MyStage extends World {
 	}
 	
 	public void stopMusic() {
-		mediaPlayer.stop();
+		if (mediaPlayer != null) {
+			mediaPlayer.stop();
+		}
 	}
 
 }

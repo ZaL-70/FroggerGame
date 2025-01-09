@@ -1,11 +1,22 @@
 package uk.ac.nott.cs.comp2013.froggerApp.model;
 
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.level.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
+import uk.ac.nott.cs.comp2013.froggerApp.view.level.Life;
+
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Config file containing all file paths & base values of the game & its contents
+ * (e.g. starting object speeds, board/game object dimensions etc.)
+ */
 public class GameConfig {
 
-    // Configuration for player
+    /**
+     * Base values & file paths related to the frog player {@link Animal}
+     */
     public static class PlayerConfig {
         public static final double MOVEMENT_X = 10.666666*2;
         public static final double MOVEMENT_Y = BoardConfig.ROW_HEIGHT / 2;
@@ -34,7 +45,9 @@ public class GameConfig {
         }
     }
 
-    // Configuration for board
+    /**
+     * Base values & file paths about the game world
+     */
     public static class BoardConfig {
         public static final double WIDTH = 600;
         public static final double HEIGHT = 800;
@@ -53,6 +66,9 @@ public class GameConfig {
         public static final String BACKGROUND_IMAGE = "file:src/main/resources/imgs/world/frog-background2.png";
     }
 
+    /**
+     * Base values for game objects' speeds
+     */
     public static class SpeedConfig {
         public static final double SLOW = 0.75;
         public static final double MEDIUM = 1;
@@ -61,13 +77,18 @@ public class GameConfig {
         public static final double XSCALE = BoardConfig.WIDTH / BoardConfig.HEIGHT;
     }
 
+    /**
+     * Base values about {@link Life} objects
+     */
     public static class LivesConfig {
         public static final int STARTING_LIVES = 3;
         public static final int LIFE_PADDING = 35;
         public static final int LIFE_SIZE = 30;
     }
 
-    // Configuration for obstacles
+    /**
+     * Base values & file paths about {@link Obstacle} objects (cars, trucks etc)
+     */
     public static class ObstacleConfig {
         public static final Map<String, String> IMAGE_PATHS = new HashMap<>();
         static {
@@ -83,7 +104,9 @@ public class GameConfig {
         public static final int CAR_SIZE = 50;
     }
 
-    // Configuration for logs
+    /**
+     * Base values & file paths for {@link Log} objects
+     */
     public static class LogConfig {
         public static final Map<String, String> IMAGE_PATHS = new HashMap<>();
         static {
@@ -95,7 +118,9 @@ public class GameConfig {
         public static final int SIZE_SHORT = 150;
     }
 
-    // Configuration for turtles
+    /**
+     * Base values & file paths {@link Turtle} & {@link WetTurtle} objects
+     */
     public static class TurtleConfig {
         public static final Map<String, String> IMAGE_PATHS = new HashMap<>();
         static {
@@ -109,6 +134,9 @@ public class GameConfig {
         public static final int SIZE = 130;
     }
 
+    /**
+     * Base values & file paths for {@link Bird} objects
+     */
     public static class BirdConfig {
         public static final Map<String, String> IMAGE_PATHS = new HashMap<>();
         static {
@@ -122,7 +150,9 @@ public class GameConfig {
         public static final int SIZE = 75;
     }
 
-    // Configuration for end points
+    /**
+     * Base values & file paths {@link End} objects
+     */
     public static class EndPointConfig {
         public static final Map<String, String> IMAGE_PATHS = new HashMap<>();
         static {

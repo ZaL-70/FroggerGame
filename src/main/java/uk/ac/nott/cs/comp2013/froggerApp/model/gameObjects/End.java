@@ -5,10 +5,10 @@ import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
 
 public class End extends GameObject {
 	boolean activated = false;
-	
-	public End(int x, int y) {
-		setX(x);
-		setY(y);
+
+	public End(int xpos, int ypos) {
+		setX(xpos);
+		setY(ypos);
 		setImage(new Image(EndPointConfig.IMAGE_PATHS.get("endPoint"), 60, 60, true, true));
 	}
 	

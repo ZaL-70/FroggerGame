@@ -1,13 +1,16 @@
 package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
-import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.Digit;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 import uk.ac.nott.cs.comp2013.froggerApp.view.level.Life;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
+/**
+ * Class updating the information displayed by world pane based on current
+ * {@link Animal} and {@link MyStage} world state (lives & score)
+ */
 public class GameLogic {
     MyStage world;
     Animal animal;
@@ -18,18 +21,27 @@ public class GameLogic {
         this.animal = animal;
     }
 
-    public void setNumber(int n) {
+    /**
+     * Update score displayed on the {@link MyStage} world pane
+     * depending on the amount of points an {@link Animal} has
+     * @param points the player has
+     */
+    public void setNumber(int points) {
         world.removeInstancesOf(Digit.class);
         int shift = 0;
-        while (n > 0) {
-            int d = n / 10;
-            int k = n - d * 10;
-            n = d;
+        while (points > 0) {
+            int d = points / 10;
+            int k = points - d * 10;
+            points = d;
             world.add(new Digit(k,30, 360-shift, 25));
             shift += 30;
         }
     }
 
+    /**
+     * Update the {@link Life} (hearts) displayed on the {@link MyStage}
+     * world pane depending on the amount of lives an {@link Animal} has
+     */
     public void setLives() {
         world.removeInstancesOf(Life.class);
         for(int i = 0; i < animal.getLives(); i++) {
@@ -37,13 +49,20 @@ public class GameLogic {
         }
     }
 
+    /**
+     * End game when past Level 2 or lives depleted
+     * @return Boolean based on above
+     */
     public boolean handleGameEnd() {
         boolean stop = animal.getStop();
-        if (stop) { gameEnd(); showLose(); }
-        if (level > 2) { gameEnd(); showWin(); }
+        if (stop) { endGame(); showLose(); }
+        if (level > 2) { endGame(); showWin(); }
         return stop || level > 2;
     }
 
+    /**
+     * Process required for when a level is cleared
+     */
     public void handleLevelEnd() {
         boolean end = animal.getEnd();
         if (end && level < 3) {
@@ -63,7 +82,7 @@ public class GameLogic {
         world.createGameOverScreen(animal.getPoints());
     }
 
-    public void gameEnd() {
+    public void endGame() {
         System.out.println("STOPP:");
         world.stopMusic();
         world.stop();

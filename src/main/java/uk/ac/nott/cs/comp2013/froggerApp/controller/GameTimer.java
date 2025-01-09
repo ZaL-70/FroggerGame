@@ -2,16 +2,17 @@ package uk.ac.nott.cs.comp2013.froggerApp.controller;
 
 import javafx.animation.AnimationTimer;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
-import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
+/**
+ * Class monitoring the world & animal state via the
+ * {@link GameLogic} logic handler
+ */
 public class GameTimer {
     Animal animal;
-    MyStage world;
     GameLogic logicHandler;
     public AnimationTimer timer;
 
-    public GameTimer(MyStage world, Animal animal, GameLogic logicHandler) {
-        this.world = world;
+    public GameTimer(Animal animal, GameLogic logicHandler) {
         this.animal = animal;
         this.logicHandler = logicHandler;
     }
@@ -38,7 +39,5 @@ public class GameTimer {
         timer.start();
     }
 
-    public void stopTimer() {
-        timer.stop();
-    }
+    public void stopTimer() { timer.stop(); }
 }

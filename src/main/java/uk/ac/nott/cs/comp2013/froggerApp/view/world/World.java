@@ -14,14 +14,17 @@ import java.util.List;
 
 /**
  * This singleton class contains event listeners for all {@link Actor}
- * added to the pane and renders their behavior repeatedly.
- * This class must not be instantiated or accessed and must stay in its own package alongside {@link MyStage},
- * as that should be the main class to use for custom behaviour. Any necessary looping game behaviour can be added
- * here and {@link MyStage} will inherit it
+ * on the pane and continually renders them. This class must not be instantiated
+ * and must stay in one package alongside {@link MyStage} as that is the main class
+ * for custom behaviour. Any core game loop or world content management behaviour
+ * can be added here which {@link MyStage} inherit.
  */
 public class World extends Pane {
     private AnimationTimer timer;
 
+    /**
+     * Default world pane. Listens for inputs from {@link Actor} types
+     */
     protected World() {
         sceneProperty().addListener(new ChangeListener<Scene>() {
             @Override
@@ -69,27 +72,49 @@ public class World extends Pane {
         };
     }
 
+    /**
+     * Instantiates timer to continually render all {@link Actor}
+     * game objects & starts keyboard input event listener
+     */
     public void start() {
         createTimer();
         timer.start();
     }
 
+    /**
+     * Stops timer which renders {@link Actor} game objects
+     */
     public void stop() {
         if (timer != null) {
             timer.stop();
         }
     }
 
+    /**
+     * Adds game objects to the world pane
+     * @param gameObject (e.g. logs, player, end point etc)
+     */
     public void add(GameObject gameObject) {
         getChildren().add(gameObject);
     }
 
-    public <T> void removeInstancesOf(Class<T> clazz) {
+    /**
+     * Removes all instances of a specific game object type from the world pane
+     * @param clazz Game object to remove
+     * @param <A> Input game object type
+     */
+    public <A> void removeInstancesOf(Class<A> clazz) {
         if (getChildren() != null) {
             getChildren().removeIf(clazz::isInstance);
         }
     }
 
+    /**
+     * Retrieve all game objects of a generic type that exist on the world pane
+     * @param cls Game object type to find
+     * @return ArrayList of found objects
+     * @param <A> Game object type & return list tye
+     */
     public <A extends GameObject> List<A> getObjects(Class<A> cls) {
         ArrayList<A> result = new ArrayList<>();
         for (Node n : getChildren()) {

@@ -2,10 +2,16 @@ package uk.ac.nott.cs.comp2013.froggerApp.view.level;
 
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.End;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig.*;
+import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.GameObject;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.factories.*;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
+/**
+ * Class for statically adding or removing elements from the {@link MyStage} world pane.
+ * Should be used to freely create different types of levels and combinations of {@link GameObject}
+ * however required for custom game levels & resetting aspects of the level.
+ */
 public class LevelSetup {
     private static final String LOG1 = LogConfig.IMAGE_PATHS.get("log1");
     private static final String LOG3 = LogConfig.IMAGE_PATHS.get("log3");
@@ -17,13 +23,10 @@ public class LevelSetup {
     private static final double FAST_SPEED = SpeedConfig.FAST;
     private static final double SUPERFAST_SPEED = SpeedConfig.SUPERFAST;
 
-    MyStage world;
+    static MyStage world;
 
-    public LevelSetup() {
+    public static void createLevel1(Animal animal) {
         world = MyStage.getInstance();
-    }
-
-    public MyStage createLevel1(Animal animal) {
         world.add(new BackgroundImage(BoardConfig.BACKGROUND_IMAGE));
         createObstacles(world);
         createTurtles(world);
@@ -32,14 +35,13 @@ public class LevelSetup {
         createEndPoints(world);
         createAnimal(world,animal);
 
-        createLives(world,animal);
+        createLives(world);
         world.add(new Digit(0, 30, 360, 25));
+        world.playMusic();
         world.start();
-
-        return world;
     }
 
-    public static void createLives(MyStage world, Animal animal) {
+    public static void createLives(MyStage world) {
         for(int i = 0; i < LivesConfig.STARTING_LIVES; i++) {
             world.add(new Life(30, LivesConfig.LIFE_PADDING + i * LivesConfig.LIFE_PADDING, 1));
         }

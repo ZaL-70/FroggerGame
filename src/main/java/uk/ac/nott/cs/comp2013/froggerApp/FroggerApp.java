@@ -15,7 +15,6 @@ public class FroggerApp extends Application {
 	Scene scene;
 	Animal animal;
 	AnimalController animalController;
-	LevelSetup setupLevel;
 	GameTimer gameTimer;
 	GameLogic logicHandler;
 
@@ -27,23 +26,22 @@ public class FroggerApp extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// Instantiate Level creator & player
-		setupLevel = new LevelSetup();
 		animal = new Animal(PlayerConfig.IMAGE_PATHS.get("up"));
 		animalController = new AnimalController(animal);
 		// Create main game level & add to scene
-		world = setupLevel.createLevel1(animal);
+		world = MyStage.getInstance();
+		LevelSetup.createLevel1(animal);
 		scene = new Scene(world, BoardConfig.WIDTH,BoardConfig.HEIGHT);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		// Instantiate & activate game controller's & loop & logic handlers
+		// Instantiate & activate game controllers, loop & logic handlers
 		startGame();
 	}
 
 	public void startGame() {
 		animal.initialise(animalController);
-		world.playMusic();
 		logicHandler = new GameLogic(world, animal);
-		gameTimer = new GameTimer(world, animal, logicHandler);
+		gameTimer = new GameTimer(animal, logicHandler);
 		gameTimer.createTimer();
 		gameTimer.startTimer();
 	}

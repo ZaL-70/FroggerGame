@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 import uk.ac.nott.cs.comp2013.froggerApp.model.GameConfig;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.GameObject;
 
+/**
+ * Immovable 'Life' game object
+ */
 public class Life extends GameObject {
 
     public Life(int size, int x, int y) {

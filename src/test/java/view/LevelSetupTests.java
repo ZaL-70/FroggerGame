@@ -17,8 +17,8 @@ import uk.ac.nott.cs.comp2013.froggerApp.view.level.Life;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
 
 public class LevelSetupTests extends ApplicationTest {
-    MyStage testWorld;
-    Animal testAnimal;
+    private static MyStage testWorld;
+    private static Animal testAnimal;
 
     @BeforeEach
     public void setup() {
@@ -28,7 +28,7 @@ public class LevelSetupTests extends ApplicationTest {
 
     @Test
     public void testCreateLives() {
-        LevelSetup.createLives(testWorld, testAnimal);
+        LevelSetup.createLives(testWorld);
         // Verify the number of obstacles
         long livesCount = testWorld.getChildren().stream().filter(node -> node instanceof Life).count();
         assertEquals(LivesConfig.STARTING_LIVES, livesCount);

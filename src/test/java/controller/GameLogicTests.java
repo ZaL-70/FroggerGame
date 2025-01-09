@@ -8,28 +8,27 @@ import uk.ac.nott.cs.comp2013.froggerApp.view.level.Digit;
 import uk.ac.nott.cs.comp2013.froggerApp.model.gameObjects.actors.player.Animal;
 import uk.ac.nott.cs.comp2013.froggerApp.controller.GameLogic;
 import uk.ac.nott.cs.comp2013.froggerApp.view.world.MyStage;
-import uk.ac.nott.cs.comp2013.froggerApp.view.level.LevelSetup;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class GameLogicTests extends ApplicationTest {
-    private MyStage mockBackground;
+    private MyStage mockWorld;
     private Animal mockAnimal;
     private GameLogic gameLogic;
 
     @BeforeEach
     public void setUp() {
-        mockBackground = mock(MyStage.class);
+        mockWorld = mock(MyStage.class);
         mockAnimal = mock(Animal.class);
-        gameLogic = new GameLogic(mockBackground, mockAnimal);
+        gameLogic = new GameLogic(mockWorld, mockAnimal);
     }
 
     @Test
     public void testSetNumber() {
         gameLogic.setNumber(123);
         ArgumentCaptor<Digit> digitCaptor = ArgumentCaptor.forClass(Digit.class);
-        verify(mockBackground, times(3)).add(digitCaptor.capture());
+        verify(mockWorld, times(3)).add(digitCaptor.capture());
         // Assert correct digits were added
         assertEquals(3, digitCaptor.getAllValues().size());
     }
@@ -39,8 +38,8 @@ public class GameLogicTests extends ApplicationTest {
         when(mockAnimal.getStop()).thenReturn(true);
         when(mockAnimal.getPoints()).thenReturn(800);
         boolean ended = gameLogic.handleGameEnd();
-        verify(mockBackground).stopMusic();
-        verify(mockBackground).stop();
+        verify(mockWorld).stopMusic();
+        verify(mockWorld).stop();
         assertTrue(ended);
     }
 
